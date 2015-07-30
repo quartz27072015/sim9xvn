@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%">
+ 
+       </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+  <?php $this->load->view('admin/layout/nav-main.phtml');?>
+  <form action="<?php echo base_url()?>admin/pagecontent" method="post">
+        <div class="panel panel-success" style="width: 99%">
+            <div class="panel-heading"><h2 class="panel-title">Liên kết</h2></div>                
+                <div class="panel-body">  
+                <div class="pull-right">
+					<a class="btn btn-sm btn-success iframe" href="<?php echo base_url()?>admin/pagecontent/add">Thêm mới</a>
+					
+					<input type="submit" name="delselect" class="btn btn-sm btn-danger" value="Xóa chọn"/>
+				</div>   
+				<div class="clearfix"></div> 
+			<div class="table-condensed">            
+                    <table class="table table-bordered" >
+					<thead>
+						<tr>
+						    <th style="width: 50px;">Select</th>  
+							<th>STT</th>
+							<th>Tiêu đề</th>
+							<th >Nội dung</th>
+							<th>Vị trí</th>	
+							<th style="width:150px">Tùy chọn</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php //var_dump($news);die;
+						foreach ($pagecontent as $pc){?>
+							<tr >
+							    <td><input type="checkbox" name="checkbox[]" value="<?php echo $pc->pagecontentid;?>"/></td>  
+							    <td><?php echo $pc->pagecontentid?></td>
+								<td><?php echo $pc->title?></td>
+								<td><?php if( strlen($pc->content) >= 200)echo substr($pc->content,0,200).'(<a style="color: blue">......</a>)'; else echo $pc->content;?></td>
+								<td><?php echo $pc->location;?></td>
+								<td style="width: 100px"> 
+								     <a class="iframe btn btn-sm btn-info" href="<?php echo base_url()?>admin/pagecontent/edit/<?php echo $pc->pagecontentid?>" title=""> <i class="glyphicon glyphicon-show"></i>  Sửa</a>
+                <a class="btn btn-sm btn-danger"  href="<?php echo base_url()?>admin/pagecontent/del/<?php echo $pc->pagecontentid?>" onclick="return conf('<?php echo $pc->title?>')"><i class="glyphicon glyphicon-trash"></i> Xóa</a>
+								</td>
+							</tr>
+						<?php }?>				
+					</tbody>
+				</table>    
+				</div>                
+                </div>
+            </div>
+    </form> 
+    <p align="center">*Notes: Vị trí được mô tả như hình dưới đây</p>
+    <div align="center">
+    <img style="width: 45%; margin: 10px 10px 10px 10px" src="<?php echo base_url()?>skin/backend/img/pagecontent/above.png"/>
+    <img style="width: 45%; margin: 10px 10px 10px 10px" src="<?php echo base_url()?>skin/backend/img/pagecontent/below.png"/>
+    </div>  
+</body>
+</html>

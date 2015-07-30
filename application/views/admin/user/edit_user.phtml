@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+<script>
+function select(a) {
+    var theForm = document.fr;
+    for (i=0; i<theForm.elements.length; i++) {
+        if (theForm.elements[i].name=='check[]')
+            theForm.elements[i].checked = a;
+    }
+}
+</script>
+			<?php if (isset($user)){?>
+        <?php if ($user[0]->username == 'admin'){?>
+	
+<div class="container">
+<form method="POST" action="">
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h2 class="panel-title">Đổi mật khẩu</h2>
+  </div>
+  <div class="panel-body">
+<table class="table table-striped">
+
+<thead>
+<tr><th colspan="2">Đổi mật khẩu cho tên đăng nhập admin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Mật khẩu mới:</strong></td>
+<td><input type="text" name="password" class="form-control"></td>
+
+</tr>
+<tr>
+<td><strong>Nhập lại mật khẩu:</strong></td>
+<td><input type="text" name="confirm_password" class="form-control"></td>
+</tr>
+<tr>
+<td colspan="2"><input type="submit" value="Đồng ý" name="submit" class="btn btn-success"></td>
+</tr>
+</tbody></table>
+  </div>
+</div>
+
+</form>
+</div>
+<?php } else {?>
+<form method="post" action="" name="fr">
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h2 class="panel-title">Thêm tài khoản</h2>
+  </div>
+  <div class="panel-body">
+<table style="width: 100%" class="table table-striped">
+
+		<tbody>
+		<tr>
+			<td style="height: 25px; width: 50%">Tên đăng nhập:</td>
+			<td style="height: 25px; width: 50%">
+			<input name="username" type="text" value="<?php  echo $user[0]->username;?>">
+
+		</tr>
+		<tr>
+			<td style="height: 25px; width: 50%">Mật khẩu:</td>
+			<td style="height: 25px; width: 50%"><input name="password" type="text">&nbsp;</td>
+		</tr>
+				<tr>
+			<td style="height: 25px; width: 50%">Xác nhận mật khẩu:</td>
+			<td style="height: 25px; width: 50%"><input name="confirm_password" type="text">&nbsp;</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="height: 25px"><strong>Quyền quản lý: <a href="javascript:select(1)">Check All</a> |<a href="javascript:select(0)">Uncheck All</a></strong></td>
+		</tr>
+
+		<tr>
+			<td colspan="2">
+				<table style="width: 100%">
+						<tbody>
+
+						
+								<td><input name="check[]" value="donhang" type="checkbox"> Đơn hàng</td>
+								<td><input name="check[]" value="congno"  type="checkbox"> Công nợ</td>
+								<td><input name="check[]" value="checksim"  type="checkbox"> Check sim</td>
+								<td><input name="check[]" value="news"  type="checkbox"> Tin tức</td>
+								<td><input name="check[]" value="page"  type="checkbox"> Trang</td>
+								<td><input name="check[]" value="member"  type="checkbox">Thành viên</td>
+								<td><input name="check[]" value="cod" type="checkbox"> Quản lý cod</td>																
+								<td><input name="check[]" value="quanlysim" type="checkbox"> Sim</td>								
+								<td><input name="check[]" value="tools" type="checkbox"> Tiện ích</td>
+								<td><input name="check[]" value="system" type="checkbox">System</td>
+
+						</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr>
+					<td style="height: 25px; text-align: center;" colspan="2">
+		
+						<input name="submit" value="Đồng ý" class="btn btn-info" type="submit">
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	
+  </div>
+</div>
+	
+</form>
+<?php }?>
+<?php }?>
+</body>

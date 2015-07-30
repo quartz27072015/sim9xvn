@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+
+
+
+<?php $this->load->view('admin/layout/nav-main.phtml')?>
+
+<script>
+function select(a) {
+    var theForm = document.fr;
+    for (i=0; i<theForm.elements.length; i++) {
+        if (theForm.elements[i].name=='check[]')
+            theForm.elements[i].checked = a;
+    }
+}
+</script>
+    
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h2 class="panel-title">Sim đã bán</h2>
+  </div>
+  <div class="panel-body">
+
+	</div>
+
+	<form method="post" name="fr">
+
+	<table class="table table-striped table-bordered" style="margin-left: 10px;width: 50%">
+	<thead>
+		<tr style="height:40px">
+			<!--  <th style="width: 140px;text-align: center; height: 40px;"><strong><a href="javascript:select(1)">Check</a> |<a href="javascript:select(0)">Uncheck</a></strong></th>-->		
+			<th style="text-align: center; height: 40px;"><strong>STT</strong></th>
+			<th style=" height: 40px;"><strong>Số Sim</strong></th>
+			<th style=" height: 40px;"><strong>Giá bán</strong></th>
+			<th style=" height: 40px;"><strong>Giá đại lý</strong></th>
+			<th style="text-align: left; height: 40px;"><strong>Đại lý</strong></th>
+
+		</tr>
+		</thead>
+		<?php if(isset($sim)){foreach ($sim as $s){?>
+		<tr id="s" style="color: green">
+			<!-- <td style="text-align: center;"><input name="check[]" type="checkbox" value="<?php echo $s->id_sim?>"></td> -->
+			<td style=" text-align: center;"><?php echo $s->id_sim?></td>
+			<td style=""><?php echo $s->sim_split?></td>
+			<td style=""><?php echo $s->price_sell?></td>
+			<td style=""><?php echo $s->price_agency?></td>
+			<td style=""><?php echo $s->agencyname?></td>
+
+			
+			
+		</tr>
+			<?php }}//End of foreach ($sim as $s)?>
+	
+		
+				<tr>
+			<td style="width: 39px"></td>
+			<td style="width: 129px"></td>
+			<td style="width: 107px"></td>
+			<td style="width: 91px"></td>
+			<td style="text-align: right;" colspan="3">
+			<input type="submit" name="delsold" class="btn btn-sm btn-info" value="Xóa danh sách">
+		</tr>
+		<tfoot>
+		<tr>
+			<td colspan="7"><div id='paging'><ul class="pagination"><?php  echo $pagination; ?></ul></div></td>
+		</tr>
+		</tfoot>
+	</table>
+
+</div>
+
+
+	
+	</form>
+
+
+
+<div class="container"></div>
+</body>
+
+
+
+
+
+
+</html>

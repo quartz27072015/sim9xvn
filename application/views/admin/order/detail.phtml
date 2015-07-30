@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><?php echo base_url()?></title>
+<?php $this->load->view('admin/layout/header.phtml');?>
+
+<!-- Optional theme -->
+
+</head>
+<?php $this->load->view('admin/layout/modal.phtml');?>
+<div class="container-fluid">
+<div class="panel panel-sucess">
+<div class="panel-body">
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+	<tr  style="height: 25px">
+		<th class="active center" style=""><strong>Sim đặt</strong></th>
+		<th class="active center" style=""><strong>Giá tiền</strong></th>
+		<th class="active center" style=""><strong>Đại lý</strong></th>
+		<th class="active center" style=""><strong>Notes</strong></th>
+		<th class="active center" style="width: 260px;"><strong>Tùy chọn</strong></th>
+	</tr>
+</thead>
+	<?php foreach ($order_detail as $od){?>
+		<tr  style="text-align: center">			
+			<td><strong style="<?php 
+      	 			if ($od->od_status == 'deliver') echo 'color: #0066FF';
+      	 			if ($od->od_status == 'pending') echo 'color: red';
+      	 			if ($od->od_status == 'failure') echo 'color: yellow';
+      	 		?>"><?php echo $od->sim_split?><br></strong></td>
+			<td ><strong><?php echo $od->price_sell?></strong></td>	
+			<td><strong><?php echo $od->agencyname?></strong></td>
+			<td align="left">
+				<?php if (isset($order_detail_notes)){
+					 foreach ($order_detail_notes as $n){ 
+						if ($n->detailid == $od->detailid){
+							echo "<strong>".$n->user."</strong>(".$n->time.") : <i>".$n->content."</i> </br>";
+						}
+					 }
+				 }//if (isset($notes))?>
+			</td>
+			<td align="left">
+				<div style="margin-bottom: 5px">
+	        	<a href="<?php echo base_url()?>admin/order/detail/forward/<?php echo $od->detailid?>" class="btn btn-sm btn-success">Chinh gia & Send SMS</a>
+	        	<a href="<?php echo base_url()?>admin/order/<?php echo $order[0]->orderid?>/detail/<?php echo $od->detailid?>/noteadd" title="Ghi chú" class="ajax btn btn-sm btn-warning">Note</a>
+	        	<br/>
+	        	</div>
+	        	<div style="margin-bottom: 5px">
+	        	<?php if ($od->od_status == 'deliver'){?>
+	        	<a class="btn btn-sm btn-danger" href="<?php echo base_url()?>admin/order/<?php echo $order[0]->orderid?>/detail/<?php echo $od->detailid?>/notdeliver">Chưa giao dịch</a><span style="color: #FFFFFF"> |
+	        	<?php }?>
+				<a href="<?php echo base_url()?>admin/order/detail/smsagency/<?php echo $od->detailid?>" class="btn btn-sm btn-info">Nhắn tin đại lý </a>
+				<br/>
+				</div>
+				<div style="margin-bottom: 5px">				
+				<input name="submit" onclick="window.location.href='<?php echo base_url()?>admin/order/<?php echo $order[0]->orderid?>/detail/smscustomer/<?php echo $od->detailid?>'" value="SMS Báo khách" class="btn btn-sm btn-success" style="font-weight: bold" />
+				</div>
+        	</td>		
+		</tr>
+	<?php }?>
+	
+ </table>
+
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th class="bg-info center" style="width: 10%"></th>
+<th colspan="2" class="bg-info center"><strong class="center-block">Thông tin khách hàng</strong></th>
+</tr>
+</thead>
+
+<tr>
+<td style="">Họ và tên :</td>
+<td style=""><strong><?php echo $order[0]->fullname?></strong></td>
+</tr>
+<tr>
+<td style="">Địa chỉ:</td>
+<td style=""><strong><?php echo $order[0]->address?></strong></td>
+</tr>
+<tr>
+<td style="">Điện thọai:</td>
+<td style=""><strong><?php echo $order[0]->phone?></strong></td>
+</tr>
+<tr>
+<td style="">Email:</td>
+<td style=""><strong><?php echo $order[0]->email?></strong></td>
+</tr>
+</table>
+
+
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>

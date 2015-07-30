@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<?php $this->load->view('admin/layout/nav-main.phtml')?>
+
+<script>
+function select(a) {
+    var theForm = document.fr;
+    for (i=0; i<theForm.elements.length; i++) {
+        if (theForm.elements[i].name=='check[]')
+            theForm.elements[i].checked = a;
+    }
+}
+</script>
+<?php $this->load->view('admin/sim/filter.phtml')?>
+
+
+    
+    
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h2 class="panel-title">Quản lý sim</h2>
+  </div>
+  <div class="panel-body">
+
+	</div>
+
+	<form method="post" name="fr">
+
+	<table class="table table-striped table-bordered">
+	<thead>
+		<tr style="height:40px">
+			<th style="width: 140px;text-align: center; height: 40px;"><strong><a href="javascript:select(1)">Check</a> |<a href="javascript:select(0)">Uncheck</a></strong></th>		
+			<th style="text-align: center; height: 40px;"><strong>STT</strong></th>
+			<th style=" height: 40px;"><strong>Số Sim</strong></th>
+			<th style=" height: 40px;"><strong>Giá bán</strong></th>
+			<th style=" height: 40px;"><strong>Giá đại lý</strong></th>
+			<th style="text-align: left; height: 40px;"><strong>Đại lý</strong></th>
+			<th style="text-align: center; height: 40px;">Tùy chọn</th>
+		</tr>
+		</thead>
+		<?php $i=0;foreach ($sim as $s){?>
+			<?php // if ($i<10){?>		
+		<tr id="s" class="">
+			<td style="text-align: center;"><input name="check[]" type="checkbox" value="<?php echo $s->id_sim?>"></td>
+			<td style=" text-align: center;"><?php echo $s->id_sim?></td>
+			<td style=""><?php echo $s->sim_split?></td>
+			<td style=""><?php echo $s->price_sell?></td>
+			<td style=""><?php echo $s->price_agency?></td>
+			<td style=""><?php echo $s->agencyname?></td>
+			<td style=""> 
+								     <a class="iframe btn btn-sm btn-info" href="<?php echo base_url()?>admin/sim/edit/<?php echo $s->id_sim?>" title=""> <i class="glyphicon glyphicon-show"></i>  Sửa</a>
+                <a class="btn btn-sm btn-danger"  href="<?php echo base_url()?>admin/sim/del/<?php echo $s->id_sim?>" onclick="return conf('<?php echo $s->sim_split?>')"><i class="glyphicon glyphicon-trash"></i> Xóa</a>
+								</td>
+			
+			
+		</tr>
+		<?php //} $i++;?>
+			<?php }//End of foreach ($sim as $s)?>
+	
+		
+				<tr>
+			<td style="width: 39px"></td>
+			<td style="width: 129px"></td>
+			<td style="width: 107px"></td>
+			<td style="width: 91px"></td>
+			<td style="text-align: right;" colspan="3"><a target="_blank" href="<?php echo base_url()?>admin/sim/download" class="btn btn-sm btn-info">Tải về</a>
+		</tr>
+		<tfoot>
+		<tr>
+			<td colspan="7"><div id='paging'><ul class="pagination"><?php  echo $pagination; ?></ul></div></td>
+		</tr>
+		</tfoot>
+	</table>
+
+</div>
+
+
+	
+	</form>
+
+
+
+<div class="container"></div>
+</body>
+
+
+
+
+
+
+</html>

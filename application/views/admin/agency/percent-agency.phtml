@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SIM | BlueWhale Admin</title>
+
+<?php $this->load->view('admin/layout/header.phtml');?>
+
+        <!-- add row -->
+    <script type="text/javascript">
+		    function addRow(tableID) {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        var colCount = table.rows[0].cells.length;
+        for(var i=0; i<colCount; i++) {
+            var newcell = row.insertCell(i);//alert(table.rows[1].cells[i].innerHTML);
+            newcell.innerHTML = table.rows[1].cells[i].innerHTML;//alert(document.getElementsByTagName('label')[0].innerHTML);
+
+            switch(newcell.childNodes[0].type) {
+	            case "hidden":
+	            	newcell.childNodes[0].value = "";
+                case "text":
+                    newcell.childNodes[0].value = "";
+                    break;         
+                case "checkbox":
+                    newcell.childNodes[0].checked = false;
+                    newcell.childNodes[0].value = "";
+                    break;
+                case "select-one":
+                    newcell.childNodes[0].selectedIndex = 0;
+                    break;
+            }
+        }
+    }
+    function deleteSelectedRow(tableID) {
+        try {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+        for(var i=0; i<rowCount; i++) {
+            var row = table.rows[i];
+            var chkbox = row.cells[0].childNodes[0];
+            if(null != chkbox && true == chkbox.checked) {
+                if(rowCount <= 1 || table.rows[1].cells[0].childNodes[0].checked == true) {
+                    alert("Cant delete all rows");
+                    break;
+                }
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+            }
+        }
+        }catch(e) {
+            alert(e);
+        }
+    }
+
+	</script>
+	<script type="text/javascript">
+	function checkselected()
+	{
+		alert(document.getElementById('agency').selectIndex);
+	}
+	</script>
+</head>
+<body>
+    <div class="panel panel-success">
+
+            <div class="panel-heading">
+            <h3>Phần trăm(%) đại lý</h3> 
+            
+            </div>
+            <div class="panel-body">
+            <!-- Situate outside form MyForm to avoid post values clause -->
+                <form action="<?php echo base_url()?>admin/agency/percent-agency" method="post">
+                <h3>Chọn đại lý</h3>
+            	  <select name="agency" id="agency" style="margin-bottom: 10px" onchange="this.form.submit()">
+                	<?php 
+                	if (isset($agency)){?>
+                		<?php foreach ($agency as $a){ ?>
+                			<option value="<?php echo $a->profileid?>" 
+                				<?php if ( ($selected != null && $selected == $a->profileid) || ($agencypercent != null && $agencypercent[0]->profileid == $a->profileid)) echo "selected=\"selected\";"; ?>>
+                			<?php echo $a->agencyname?></option>
+	                	<?php }?>
+	                <?php }?>
+                </select>
+                </form>  
+                <form name="myForm" onsubmit="return validateForm()" action="<?php echo base_url()?>admin/agency/percent-agency" method="post" >            
+            	<INPUT style="margin-top: 5px; float: right;" type="button" value="Thêm điều kiện" onclick="addRow('dataTable')" />  					
+  				<INPUT style="margin-top: 5px; color: red;float: right;" type="submit" value="Xóa chọn"  />
+                
+                <p style="margin-bottom: 0px;color: red">*Chú ý: KT các điều kiện cho đúng!</p>             
+                <div class="block">           
+                      
+                    <table class="data diaplay datatable" id="dataTable">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Số thứ tự</th>
+							<th>Ngưỡng dưới (x1000 VNĐ)</th>
+							<th>Ngưỡng trên (x1000 VNĐ)</th>
+							<th>Phần trăm(%)</th>
+
+							<th>Tùy chọn</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php if($agencypercent == null){?>
+					<tr class="odd gradeX">
+								<td><input type="checkbox" name="checkbox[]" value=""/></td>
+								<td><input type="hidden" name="percentid[]" value=""/><label></label></td>
+							  	<td><input type="text" name="lower[]"  value="" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="upper[]" value="" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="percent[]" value=""autocomplete="on" placeholder="0" required/></td>
+					
+								<td></td>
+							</tr>
+						<?php }else {
+									foreach ($agencypercent as $ap){
+											?>
+							<tr class="odd gradeX">
+								<td><input type="checkbox" name="checkbox[]" value="<?php echo $ap->percentid?>" /><label></label>
+								</td>
+								<td><input type="hidden" name="percentid[]" value="<?php echo $ap->percentid?>"/><label><?php echo $ap->percentid?></label></td>
+							  	<td><input type="text" name="lower[]"  value="<?php echo $ap->lower/1000?>" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="upper[]" value="<?php echo $ap->upper/1000?>" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="percent[]" value="<?php echo $ap->percent?>"autocomplete="on" placeholder="0" required/></td>
+								
+								<td><a style="color:red" href="<?php echo base_url()?>admin/agency/del-percent-agency/<?php echo $ap->percentid?>">Xóa</a></td>								
+							</tr>
+							<?php 
+						 }//End of foreach ($agencypercent as $ap
+					 }  //End of if(isset($agencypercent)
+					 ?>
+						
+					</tbody>
+				</table>
+				<input type="hidden" name="profileid" value="<?php if($selected != null ) echo $selected; elseif ($agencypercent != null)echo $agencypercent[0]->profileid; else ?>"/>
+				    <input type="submit" style="color: white;float: right; font-size: 16px; background-color: orange; border-radius: 5px; padding-top: 3px; padding-bottom: 3px; margin-top: 4px; width: 100px;" value="Đồng ý"/>
+                       </form> 
+              </div>
+
+    </div>
+    <div class="clear"></div>
+    
+</body>
+</html>

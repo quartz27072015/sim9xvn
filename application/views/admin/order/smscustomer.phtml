@@ -1,0 +1,43 @@
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+
+<form method="post" action="" name="myfrom" onsubmit="return confs('Bạn muốn gửi tới: ('+document.myfrom.mobile.value+')\n Với Nội Dung: \n--------------------\n'+document.myfrom.txt.value+'');">
+		
+		<input name="post[sosim]" value="" type="hidden">
+	
+						<table class="table table-striped ">
+							<thead>
+							<tr>
+							<th style="text-align: center">
+								Nhắn tin cho khach hang</th>
+							</tr>
+							</thead>
+							<tbody><tr>
+							<td style="text-align: center">
+								<textarea  name="txt" style="height: 128px; width: 100%; margin-right: 0px;">
+									<?php //var_dump($sendsms);die;
+										if($check[0]->simstatus == 'sim-moi-ve'){
+											echo 'Sim '.$check[0]->sim_split.' van con.';
+										} else {
+											echo 'Sim '.$check[0]->sim_split.' da het';
+										}
+									?> 
+								</textarea>
+								<br>
+								Tới số:<input name="mobile" value="<?php echo $check[0]->phone?>" type="text">
+								
+
+								<input value="Gửi SMS" class="btn btn-info" name="smscustomer_sendsms" type="submit">
+							</td>
+							</tr>
+						</tbody></table>
+					
+					
+</form>
+
+</body>
+
+

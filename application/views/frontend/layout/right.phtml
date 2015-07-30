@@ -1,0 +1,129 @@
+<div class="col-md-4" style="max-width: 270px;">
+	<div class="panel-km">
+		<div class="panel-heading">
+			<h3 class="panel-title"></h3>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive" style="max-height: 500px; overflow: auto">
+				<strong class="kmsim">0932.666.888</strong>&nbsp; <strong class="giagoc">200,000,000</strong><br>
+				<span class="badge badge-info sale">Sale</span>&nbsp; <strong class="giamgia">10%</strong>&nbsp; &nbsp;
+				<strong class="giakm">180,000,000</strong><br>
+			</div>
+		</div>
+	</div><!-- 
+	<div class="panel-fix">
+		<div class="panel-heading">
+			<h2 class="panel-title"> Chọn theo đầu số</h2>
+		</div>
+		<div class="panel-body">
+			<ul class="start-number">
+				<li class="simicon20">Có liệt kê hết các đầu số không?</li>
+			</ul>
+		</div>
+	</div>
+	 -->
+	<div class="panel-fix">
+		<!-- <div class="panel-fix">
+		<div class="panel-heading"><h2 class="panel-title"> SIM phong thủy</h2>
+		</div>
+		<div style="background-image: url('../images/phongthuy.png'); height: 180px;" class="panel-body">
+		
+			<form action="index.php" method="GET"><input type="hidden" style="color: white;" value="search" name="do">
+				<label>Nhập số điện thoại</label><input name="sim"/>
+				<label>Ngày sinh (Dương lịch)</label>
+				<select>
+					<option>Ngày</option>
+					<?php for ($i=0;$i<31;$i++){?>
+					<option value="<?php echo $i+1?>"><?php echo $i+1?></option>
+					<?php }?>
+				</select>
+				<select>
+					<option>Tháng</option>
+					<?php for ($i=0;$i<12;$i++){?>
+					<option value="<?php echo $i+1?>"><?php echo $i+1?></option>
+					<?php }?>
+				</select>
+				<select>
+					<option>Năm</option>
+					<?php for ($i=1950;$i<2015;$i++){?>
+					<option value="<?php echo $i?>"><?php echo $i?></option>
+					<?php }?>
+				</select>
+				<label>Giờ sinh</label>
+				<select>
+					<option value="0">23h đến 1h</option>
+					<?php for ($i=1;$i<12;$i++){?>
+						<?php for ($j=0;$j<11;$j++){?>
+							<?php if($j == $i-1){?>
+							<option value="<?php echo $i?>"><?php echo ($i+$j).'h đến '.($i+$j+2).'h'?></option>
+							<?php }?>
+						<?php }?>
+					<?php }?>
+				</select>
+				<label>Giới tính</label> <input type="radio">Nam</input>
+				<input type="radio">Nữ</input>
+					<input type="hidden" value="Tìm kiếm" name="submit">
+
+			</form>
+			
+		</div> -->
+		<div class="panel-fix">
+
+		</div>
+		<div class="panel-fix hidden-xs">
+			<div class="panel-heading"><h4 class="panel-title">Đơn đặt hàng </h4>
+			</div>
+			<div class="panel-body">
+				<div id="order">
+					<div class="list-group">
+					<?php foreach ($order as $od){?>						
+						<div class="donhang">
+						<strong class="red font-13"><?php echo substr($od->phone, 0,6)?></strong>
+						<br>
+						<span class="font-11">
+						<?php echo $od->datetime?></span>
+						<br>
+						<strong class="font-12" style="color: #336699;"><?php echo $od->fullname?></strong>
+						<br>
+						</div>
+					<div class="clearfix"></div>
+					<?php }?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel-fix hidden-xs">
+			<div class="panel-heading"><h2 class="panel-title">  Tin tức</h2></div>
+				<div id="km" class="panel-body"  >
+					<div><h6 class="title">
+                                                <?php $i=0 ?>
+						<?php foreach ($news as $n ){ ?>
+                                                
+						<!-- <strong class="red"><?php echo  $n->title?></strong></h6> ur-->
+                                                <?php if ($i <= 12 ) { ?>
+                                                <?php $i++; ?>
+						<p class="list-group-item-text font-12">
+                                                        <a href="<?php echo base_url()?>news/<?php echo $n->urlfriendly;?>"><?php echo $n->title;?></a>
+						</p>
+						<?php }//End of foreach ($news as $n)?>
+                                                <?php } ?>
+					
+					</div>
+				</div>
+		</div>
+		<?php if (isset($pagecontent)){?>
+			<?php foreach ($pagecontent as $pc){?>
+				<?php if ($pc->location=='right'){?>
+				<div class="panel-fix hidden-xs">
+				<div class="panel-heading"><h2 class="panel-title"><?php echo $pc->title?></h2></div>
+				<div id="km" class="panel-body">
+					<div><?php echo $pc->content?>					
+					</div>
+				</div>
+		</div>
+				<?php }?>
+			<?php }?>
+		<?php }?>
+		</div>
+	</div>
+</div>

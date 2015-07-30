@@ -1,0 +1,61 @@
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+
+<form method="post" action="" name="myfrom" onsubmit="return confs('Bạn muốn gửi tới: ('+document.myfrom.mobile.value+')\n Với Nội Dung: \n--------------------\n'+document.myfrom.txt.value+'');">
+		
+		<input name="post[sosim]" value="" type="hidden">
+	
+						<table class="table table-striped ">
+							<thead>
+							<tr>
+							<th style="text-align: center">
+								Nhắn tin cho đại lý</th>
+							</tr>
+							</thead>
+							<tbody><tr>
+							<td style="text-align: center">
+								<textarea  name="txt" style="height: 128px; width: 100%; margin-right: 0px;">
+									<?php //var_dump($sendsms);die;
+									echo $sendsms[0]->sim_split;
+									if (isset($last_price_agency)){
+										if ($last_price_agency == 0){
+											echo ' Thu:'.$sendsms[0]->price_agency;
+										} else {
+											echo ' Thu:'.$last_price_agency;
+										}
+									} else {
+										echo ' Thu:'.$sendsms[0]->price_agency;
+									}
+									echo ' Tên:'.$sendsms[0]->fullname;
+									echo ' Địa chỉ:'.$sendsms[0]->address;
+									echo ' Điện thoại:'.$sendsms[0]->phone;
+									?> 
+								</textarea>
+								<br>
+								Tới số:<input name="mobile" value="<?php echo $sendsms[0]->agencymobile?>" type="text">
+								Đại lý: <?php echo $sendsms[0]->agencyname?><br>
+								<?php //var_dump($sendsms);die;
+					$status =  $sendsms[0]->od_status;?>
+					<?php if ($status == 'deliver'){?>
+						<input  class="btn btn-danger" value="Sim đã chuyển" class="go">					
+					<?php }else {?>
+						<input  class="btn btn-success"  name="smsagency_deliver" type="submit" value="Chuyển sim" class="go">				
+					<?php }?>
+					<?php if($sendsms[0]->smsagency == 'enable'){?>
+						<input value="Da gui sms" class="btn btn-danger">
+						<?php }else{?>
+								<input value="Gửi SMS" class="btn btn-info" name="smsagency_sendsms" type="submit">
+						<?php }?>
+							</td>
+							</tr>
+						</tbody></table>
+					
+					
+</form>
+
+</body>
+
+

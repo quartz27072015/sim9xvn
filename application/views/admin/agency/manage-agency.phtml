@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%">
+ 
+       </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php $this->load->view('admin/layout/nav-main.phtml');?>
+<form class="form-inline" action="" method="post">
+	<div class="panel panel-success">
+		<div class="panel-heading"><h2 class="panel-title">Danh sách đại lý</h2></div>
+		<div class="panel-body">
+			<div class="pull-left">
+			<input type="text" class="form-control input-sm" name="text">
+			<i class="glyphicon glyphicon-search"></i>
+			<input type="submit" class="btn input-sm btn-warning" value="Tìm kiếm" name="search">
+			</div>
+			<div class="pull-right">
+			<a class="btn btn-sm btn-success iframe" href="<?php echo base_url()?>admin/agency/add">Thêm mới</a>
+			<input type="submit" name="delselect" class="btn btn-sm btn-danger" value="Xóa chọn"/>
+			</div>
+			
+			<div class="clearfix"></div>
+			<input type="hidden" value="thanhvien" name="act">
+			<div class="table-condensed">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th class="active"></th>
+							<th class="active center col-md-1">STT</th>
+							<th class="active">Đại lý (Kho=mặc định)</th>
+							<th class="active">%</th>
+					        <th class="active">Tổng sim</th>
+					        <th class="active hidden-xs">Địa chỉ</th>
+					        <th class="active">Email</th>
+					        <th class="active">Mobile</th>
+					        <th class="active hidden-xs">Website</th>
+					         <th class="active">Tùy chọn</th>
+					          
+						</tr>
+					</thead>
+					<tbody>
+						<?php if(isset($agency)){foreach ($agency as $a){?>
+							<tr>
+								<td>
+								<input type="checkbox" name="checkbox[]" value="<?php echo $a->profileid;?>"/>
+								</td>  							
+								<td><?php echo $a->profileid;?></td>
+								<td><?php echo $a->agencyname?></td>
+								<td>
+								<?php foreach ($agencypercent as $ap){?>
+									<?php 	$lower = $ap->lower;
+if(strlen($lower)>9){
+	                            			$lower = substr($lower, 0,strlen($lower)-9).','.substr($lower,-9,3).','.substr($lower,-6,3).','.substr($lower,-3,3);
+	                            		}else if (strlen($lower)>6 ){
+	                            			$lower = substr($lower, 0,strlen($lower)-6).','.substr($lower,-6,3).','.substr($lower,-3,3);
+	                            		} else if (strlen($lower)>3){
+											$lower = substr($lower, 0,strlen($lower)-3).','.substr($lower,-3,3);
+										}
+										
+										$upper = $ap->upper;
+if(strlen($upper)>9){
+	                            			$upper = substr($upper, 0,strlen($upper)-9).','.substr($upper,-9,3).','.substr($upper,-6,3).','.substr($upper,-3,3);
+	                            		}else if (strlen($upper)>6 ){
+	                            			$upper = substr($upper, 0,strlen($upper)-6).','.substr($upper,-6,3).','.substr($upper,-3,3);
+	                            		} else if (strlen($upper)>3){
+											$upper = substr($upper, 0,strlen($upper)-3).','.substr($upper,-3,3);
+										}
+										?>
+									<?php if($a->profileid == $ap->profileid){?>
+										<label><?php echo $lower.' - '.$upper." : ".$ap->percent.'%'?></label><br/>
+									<?php }//End of if($a->profileid == $ap->profile_id)?>
+								<?php }//End of foreach ($agencypercent as $ap)?>
+								<a href="<?php echo base_url()?>admin/agency/percent-agency" class="iframe">
+								<strong><span>Chỉnh sửa</span></strong>
+								</a>
+								</td>
+								<td><?php echo $a->agencyaddress?></td>
+								<td><?php echo $a->agencyemail?></td>
+								<td><?php echo $a->agencymobile?></td>
+								<td><?php echo $a->agencywebsite?></td>	
+								<td><a class="iframe btn btn-sm btn-info" href="<?php echo base_url()?>admin/agency/editprofile/<?php echo $a->profileid?>" title=""> <i class="glyphicon glyphicon-show"></i>  Sửa</a>
+								<?php //if ($a->type != 1){?>
+                <a class="btn btn-sm btn-danger"  href="<?php echo base_url()?>admin/agency/del/<?php echo $a->profileid?>" onclick="return conf('<?php echo $a->agencyname?>')"><i class="glyphicon glyphicon-trash"></i> Xóa</a></td>
+                <?php //}?>						
+							</tr>
+						<?php }}//End of foreach ($agency as $a)?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</form>
+</body>

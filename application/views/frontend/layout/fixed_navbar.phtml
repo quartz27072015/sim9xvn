@@ -1,0 +1,21 @@
+<div style="background-color: #336699;" class="container-fluid">
+<div class="container_top">
+		<div class="inner">
+		<a href="<?php echo base_url()?>"><i class="glyphicon glyphicon-home"></i> Trang chủ</a> |
+
+		 			<?php if (isset($pagecontent)){?>
+			<?php foreach ($pagecontent as $pc){?>
+				<?php if ($pc->location=='fixed_navbar'){?>
+				<a href="<?php echo base_url().'noi-dung/'.$pc->urlfriendly?>"><?php echo $pc->title?> |</a>
+		
+				<?php }?>
+			<?php }?>
+		<?php }?>
+			<div class="cart">
+			<a id="addcart" class="addcart" href="javascript:">
+				<i class="glyphicon glyphicon-shopping-cart font-12"></i> Giá»� hÃ ng <span id="cart" class="badge bg-info">0</span></a> 
+			<!-- | <a class="frame font-12" data-height="400" data-width="60%" title="kiá»ƒm tra Ä‘Æ¡n hÃ ng" href="<?php echo base_url()?>index.php?ajax=cod">Kiá»ƒm tra Ä‘Æ¡n hÃ ng</a> -->
+			</div>
+		</div>
+	</div>
+	</div>

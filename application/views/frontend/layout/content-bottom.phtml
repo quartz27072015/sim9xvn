@@ -1,0 +1,48 @@
+<div>
+<?php if(isset($pagecontent)){?>
+<div class="col-md-3">
+	<div class="col1"><h4 class="font-14"><strong>Chính Sách Bán Sim</strong></h4>
+		<ul>
+		
+		<?php foreach ($pagecontent as $pc){?>
+		<?php if ($pc->location=='content-bottom_chinh-sach-ban-sim'){?>
+			<li><a href="<?php echo base_url().'noi-dung/'.$pc->urlfriendly?>"><?php echo $pc->title?></a></li>
+			<?php }?>
+		<?php }?>
+		</ul>
+	</div>
+</div>
+<div class="col-md-3">
+	<div class="col2"><h4 class="font-14"><strong>Hỗ Trợ Mua Sim</strong></h4>
+		<ul><?php foreach ($pagecontent as $pc){?>
+		<?php if ($pc->location=='content-bottom_ho-tro-mua-sim'){?>
+			<li><a href="<?php echo base_url().'noi-dung/'.$pc->urlfriendly?>"><?php echo $pc->title?></a></li>
+			<?php }?>
+			<?php }?>
+		</ul>
+	</div>
+</div>
+<div class="col-md-3">
+	<div class="col3"><h4 class="font-14"><strong>Thông Tin Về Sim Số Đẹp</strong></h4>
+		<ul><?php foreach ($pagecontent as $pc){?>
+		<?php if ($pc->location=='content-bottom_thong-tin-sim-so-dep'){?>
+			<li><a href="<?php echo base_url().'noi-dung/'.$pc->urlfriendly?>"><?php echo $pc->title?></a></li>
+			<?php }?>
+			<?php }?>
+		</ul>
+	</div>
+</div>
+<div class="col-md-3">
+	<div class="col4"><h4 class="panel-title">Kết nối với <?php echo base_url()?></h4>
+		<div style="text-align: center;">
+			<img style="height:45px; width:45px" src="<?php echo base_url()?>skin/frontend/img/facebook.png" alt="Mua sim số đẹp trên facebook">
+			<img style="height:45px; width:45px" src="<?php echo base_url()?>skin/frontend/img/twitter.png" alt="Mua sim số đẹp trên twitter">
+			<img style="height:45px; width:45px" src="<?php echo base_url()?>skin/frontend/img/googleplus.png" alt="Mua sim số đẹp trên google plus">
+			<img style="height:45px; width:45px" src="<?php echo base_url()?>skin/frontend/img/youtube.png" alt="Mua sim số đẹp trên youtube">
+		</div>
+	</div>
+<div class="col-md-12">
+</div>
+</div>
+<?php }//End of if(isset($pagecontent))?>
+</div>

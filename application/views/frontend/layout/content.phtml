@@ -1,0 +1,169 @@
+		<div class="col-md-9" style="max-width: 694px">
+			<!-- search SIM -->
+			<div class="panel panel-default" style="background: #C7EAF9;">
+				<h3 class="panel-title search-top text-center">
+					<img class="search-bg" alt="tim sim so dep" src="<?php echo base_url()?>skin/frontend/img/search_bg.png">
+				</h3>
+				<div class="panel-body">
+					<form id="search" name="search" action="<?php echo base_url()?>search" method="get">
+						<div class="row">
+							<span class="line"></span>
+							<?php //var_dump($selected);die;?>
+							<div class="col-md-2">
+								<img style="margin-left: 10px;" class="hidden-xs" alt="tim sim tai day" src="<?php echo base_url()?>skin/frontend/img/searchsim.png">
+							</div>
+							<div class="col-md-10 text-center">
+								<div class="col-md-4">
+									<select style="font-weight: bold;" class="form-control input-sm" name="provider">
+										<option value="0">Chọn mạng </option>
+										<?php foreach ($providers as $prv){?>
+										<option value="<?php echo $prv->name?>" 
+										<?php if ($selected != null && $prv->name == $selected)echo "selected=\"selected\"";?>><?php echo $prv->name?></option>
+										<?php }?>									
+									</select>
+								</div>
+							<div class="col-md-4">
+								<div class="input-group">
+									<div class="input-group-addon font-12">
+									<strong> Giá từ:</strong>
+									</div>
+									<input placeholder="100,000" class="form-control input-sm price font-b text-right" name="price_lower">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="input-group">
+									<div class="input-group-addon font-12"><strong>Đến:</strong></div>
+										<input placeholder="1,000,000" class="form-control input-sm price font-b text-right" name="price_upper">
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="col-md-11"><span class="line"></span><span class="line"></span>
+								<div class="col-md-10">
+									<input id="sim" name="sim" title="" data-content=" - Sử dụng dấu &lt;span class='red'&gt;x&lt;/span&gt; đại điện cho 1 số và dấu &lt;span class='red'&gt;*&lt;/span&gt; đại điện cho một chuỗi số. &lt;br /&gt; + Để tìm sim bắt đầu bằng 098, quý khách nhập vào 098*&lt;br /&gt; + Để tìm sim kết thúc bằng 888, quý khách nhập vào *888&lt;br /&gt; + Để tìm sim bắt đầu bằng 098 và kết thúc bằng 888, nhập vào 098*888&lt;br /&gt; + Để tìm sim bên trong có số 888, nhập vào 888&lt;br /&gt; + Để tìm sim bắt đầu bằng 098 và kết thúc bằng 808, 818, 828, 838, 848, 858, 868, 878, 888, 898 nhập vào 098*8x8&lt;br /&gt; " data-placement="bottom" data-toggle="popover" data-container="body" placeholder="Nhập số sim bạn cần tìm" class="form-control pull-left popover-dismiss" value=""  onclick="this.value=''" data-original-title="Hướng dẫn tìm kiếm sim">
+								</div>
+								<div class="col-md-1 col-xs-12 text-center">
+								<button class="btn btn-success font-b"> <i class="glyphicon glyphicon-search"></i> Tìm kiếm</button>
+								</div>
+							</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5 col-md-offset-4 col-xs-12"> 
+								<strong class="font-12">Hot key:</strong> 
+								<span class="hotkey">
+									<a class="hotkey" href="0912*68">0912*68</a>, 
+									<a class="hotkey" href="090*888">090*888</a>, 
+									<a class="hotkey" href="0913*">0913*</a>, 
+									<a class="hotkey" href="*6688">*6688</a> 
+								</span>
+							</div>
+						</div>
+						<div style="" class="fullsearch col-md-offset-3 font-12">
+							<span class="line"></span>Dãy số không gồm:
+							<input type="checkbox" value="1" name="n[]"><span> 1 </span>
+							<input type="checkbox" value="2" name="n[]"><span> 2 </span>
+							<input type="checkbox" value="3" name="n[]"><span> 3 </span>
+							<input type="checkbox" value="4" name="n[]"><span> 4 </span>
+							<input type="checkbox" value="5" name="n[]"><span> 5 </span>
+							<input type="checkbox" value="6" name="n[]"><span> 6 </span>
+							<input type="checkbox" value="7" name="n[]"><span> 7 </span>
+							<input type="checkbox" value="8" name="n[]"><span> 8 </span>
+							<input type="checkbox" value="9" name="n[]"><span> 9 </span><br>
+							<div class="form-inline">
+								<span class="line"></span>
+								<div class="input-group" style="width:200px">
+									<div class="input-group-addon font-12">Tổng điểm:</div>
+									<input placeholder=" &lt; 81" class="form-control input-sm" maxlength="2" name="totalpoint">
+								</div>
+								<div class="input-group" style="width:200px">
+									<div class="input-group-addon font-12">Tổng Nút:</div>
+									<input placeholder=" 1 -10" class="form-control input-sm" maxlength="2" name="nut">
+								</div>
+							</div>
+							<div class="col-md-offset-3">
+								<span class="line"></span>Sim 10 số <input type="radio" name="number10" value="0">Sim 11 số <input type="radio" name="number11" value="1">
+							</div>
+						</div>
+						<input type="hidden" value="true" name="submit">
+					</form>
+				</div>
+			</div>
+			
+			<!-- List sim -->
+			<div class="panel-fix">
+				<div class="panel-heading">
+					<h1 class="panel-title">Danh sách sim:  <a class="pull-right glyphicon glyphicon-print" href="?ajax=search&amp;network=0&amp;giatu=&amp;den=&amp;sim=&amp;tongdiem=&amp;tongnut=3&amp;submit=true&amp;print=true" target="_blank"></a></h1>
+				</div>
+				<div class="panel-body"><b style="color: blue; padding: 5px 5px 5px 5px">Chọn theo đầu số</b>
+					<ul id="navigation" style="padding: 0 0 10px 0;margin-top: 5px">
+						<?php foreach ($providers as $prv){?>
+						<li class="top">
+							<p style="border: 1px solid;padding: 3px 3px 3px 3px"><?php echo $prv->name?></p>
+							<ul>
+								<?php foreach ($head as $h){?>
+									<?php if ($h->provider_id == $prv->providerid){?>
+										<li>
+											<a href="<?php echo base_url().$prv->name?>/dau-so-<?php echo $h->head?>"><?php echo $h->head?></a>
+											<ul>
+												<?php foreach ($kinds as $k){?>
+													<li>
+														<a href="<?php echo base_url().$prv->name?>/dau-so-<?php echo $h->head?>/<?php echo $k->name?>">
+															<?php echo $k->fullname?>
+														</a>													
+													</li>
+												<?php }//End of foreach ($kinds as $k)?>
+											</ul>
+										</li>
+									<?php }//End of if ($h->provider_id == $prv->providerid)?>
+								<?php }//End of foreach ($head as $h){?>
+							</ul>
+						</li>
+						<?php }//End of foreach ($providers as $prv)?>
+					</ul>
+					<table class="table table-hover table-condensed">
+						<thead>
+							<tr>
+								<th class="active center hidden-xs">STT</th>
+								<th class="active text-center">Số sim</th>
+								<th class="active sortprice">Giá tiền <span class="glyphicon"> <a href="javascript://" class="pricetoogle"><span class="glyphicon-arrow-up"></span><span class="glyphicon-arrow-down"></span></a></span></th>
+								<th class="active hidden-xs">Mạng di dộng</th><th class="active hidden-xs">Đặt mua</th>
+								<th class="active hidden-xs">Giỏ hàng</th>
+								<th class="active visible-xs"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($sim as $s){?>
+							<tr>
+								<td class="center hidden-xs"><?php echo $s['id_sim'];?></td>
+								<td><a title="<?php echo $s['sim_split'];?>" href="<?php echo base_url()?>order/mua-sim-trong-gio-hang.html?sim=<?php echo $s['id_sim']?>" class="bfix"><strong><?php echo $s['sim_split'];?></strong></a></td>
+								<td class="text-center">
+									<strong class="bfix color_cam font-12">
+										<?php $pricesell = $s['price_sell'];
+										if(strlen($pricesell)>9){
+	                            			$pricesell = substr($pricesell, 0,strlen($pricesell)-9).','.substr($pricesell,-9,3).','.substr($pricesell,-6,3).','.substr($pricesell,-3,3);
+	                            		}else if (strlen($pricesell)>6 ){
+	                            			$pricesell = substr($pricesell, 0,strlen($pricesell)-6).','.substr($pricesell,-6,3).','.substr($pricesell,-3,3);
+	                            		} else if (strlen($pricesell)>3){
+											$pricesell = substr($pricesell, 0,strlen($pricesell)-3).','.substr($pricesell,-3,3);
+										}
+										echo $pricesell;?>
+									</strong>
+								</td>
+								<td class="hidden-xs text-center"><span class="network n4"><?php echo $s['provider'];?></span></td>
+								<td class="hidden-xs text-center"><a class="btn btn-sm btn-success dfix" href="<?php echo base_url()?>order/mua-sim-trong-gio-hang.html?sim=<?php echo $s['id_sim']?>">Đặt mua</a></td>
+								<td class="center"><a data-idsim="<?php echo $s['id_sim'];?>" data-gia="<?php echo $pricesell;?>" data-sim="<?php echo $s['sim_original'];?>" class="addcart " href="javascript://" title="Thêm <?php echo $s['sim_split']?> vào giỏ hàng" data-toggle="tooltip"><i class="cartbuy"></i></a></td>
+							</tr>
+							<?php }//End of foreach ($sim as $s)?>
+							
+							<!-- Paging -->
+							<tr>
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+					<?php  echo $pagination; ?>
+				</div>
+			</div>
+		</div>

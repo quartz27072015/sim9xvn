@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title><?php echo base_url()?></title>
+
+<?php $this->load->view('admin/layout/header.phtml');?>
+ <!--  -->	<script src="<?php echo base_url();?>skin/backend/js/jquery-ui/jquery.ui.mouse.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>skin/backend/js/jquery-ui/jquery.ui.sortable.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>skin/backend/js/table/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+            $('.datatable').dataTable();
+			setSidebarHeight();
+        });
+    </script>
+</head>
+<body>
+  <?php $this->load->view('admin/layout/nav-main.phtml');?>
+    <div class="container">
+
+      <div class="panel panel-success">
+            <div class="panel-heading"><h2 align="center" class="panel-title">Check sites</h2></div>
+            <div class="panel-body" align="center">
+                <div class="block ">
+                    <form action="<?php echo base_url()?>admin/tools/checksites" method="post" >
+	                    <table class="form">
+	                        <tr>
+	                            <td class="col1">
+	                                <label>Nhập sites</label><br/>
+	                            </td>
+	                            <td class="col2">
+	                                <textarea style="width: 250px;height: 245px"  name="datasim"></textarea>
+	                            </td>
+								<td style="padding: 0 10px 0 10px">	<?php //var_dump($sites);die; 
+												if (isset($sites)){
+		                            		foreach ($sites as $k=>$v){?>
+			                            		<?php echo $v;?><br/>		                            			                            		
+		                            		<?php }
+		                            	}
+		                            	?></td>
+								<td>   <?php //var_dump($status);die; 
+		                            if (isset($status)){
+		                            	foreach ($status as $k=>$v){?>
+		                           		<?php 	echo $v;?>
+		                            	<?php }}?></td>
+	                        </tr>
+	                        
+
+
+
+	                       </table>
+                         <input class="btn btn-success" type="submit" name="start" value="Bắt đầu"/>
+                       </form>
+
+                </div>
+      		</div>
+      </div>
+  </div>
+  
+  </body>
+  </html>

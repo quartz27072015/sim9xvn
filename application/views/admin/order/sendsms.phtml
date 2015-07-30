@@ -1,0 +1,61 @@
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" language="javascript" src="admin.js"></script>
+
+
+
+
+<form method="post" action="" name="myfrom" onsubmit="return confs('Bạn muốn gửi tới: ('+document.myfrom.mobile.value+')\n Với Nội Dung: \n--------------------\n'+document.myfrom.txt.value+'');">
+		
+		<input name="post[sosim]" value="" type="hidden">
+	
+						<table class="table table-striped ">
+							<thead>
+							<tr>
+							<th style="text-align: center">
+								Nhắn tin cho đại lý</th>
+							</tr>
+							</thead>
+							<tbody><tr>
+							<td style="text-align: center">
+								<textarea  name="txt" style="height: 128px; width: 100%; margin-right: 0px;">
+									<?php 
+									echo $sendsms[0]->sim_split;
+									if ($last_price_agency == 0){
+										echo ' Thu:'.$sendsms[0]->price_agency;
+									} else {
+										echo ' Thu:'.$last_price_agency;
+									}
+									echo ' Tên:'.$sendsms[0]->fullname;
+									echo ' Địa chỉ:'.$sendsms[0]->address;
+									echo ' Điện thoại:'.$sendsms[0]->phone;
+									?> 
+								</textarea>
+								<br>
+								Tới số:<input name="mobile" value="<?php echo $sendsms[0]->agencymobile?>" type="text">
+								<input name="dodai" style="width: 27px" type="text"><br>
+								Tuấn (0906.113.113 - 09.3456.3939 - 0946.091.091 - 04.3753.8818) - www.simdienthoai.com.vn<br>
+								<?php //var_dump($forward);die;
+					$status =  $sendsms[0]->status;?>
+					<?php if ($status != 'deliver'){?>
+					<input  class="btn btn-success"  name="deliver" type="submit" value="Chuyển sim và gửi SMS" class="go">
+					<?php }else {?>
+					<input  class="btn btn-danger"  name="deliver" value="Sim đã chuyển" class="go">
+					<?php }?>
+								&nbsp;<input value="Gửi SMS" class="btn btn-info" name="submit" type="submit">
+							</td>
+							</tr>
+						</tbody></table>
+					
+					
+</form>
+
+</body>
+
+

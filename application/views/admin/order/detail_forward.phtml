@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administrator</title>
+<?php $this->load->view('admin/layout/header.phtml')?>
+
+</head>
+
+<?php $this->load->view('admin/layout/modal.phtml');?>
+
+<script>
+function checklai()
+{
+ a=window.confirm('Giá đại lý thu: '+document.getElementById('dlthu').value+' Tự Thu: '+document.getElementById('tuthu').value+' \n ');
+ if(a)return true;
+ else return false;
+}
+function test1(tuthu,giaban)
+{
+	giaban=giaban.replace(/\./g,'');
+	ob=document.getElementById('dlthu');
+	ob.value=giaban-tuthu.replace(/\,/g,'');
+}
+
+function test2(giaphaitra,giaban)
+{
+	giaban=giaban.replace(/\./g,'');
+	giaban=giaban.replace(/\,/g,'');
+	giaphaitra=giaphaitra.replace(/\./g,'');
+	ob=document.getElementById('conlai');
+	ob.value=(giaban-giaphaitra)/1000;
+}
+
+</script>
+<form action="" method="post" onsubmit="return checklai()">
+
+		<?php //var_dump($forward);die;
+		if (isset($forward)){?>
+			<table class="table table-bordered">
+				<tr>
+					<td colspan="2">
+					<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th class="active"><strong>Số sim</strong></th>
+							<th class="active"><strong>Gía tiền</strong></th>
+							<td class="active" align="center"><strong>Thông tin khách hàng</strong></td>
+						</tr>
+						</thead>
+							<tr>
+								<td  class="active">
+									<strong><?php echo $forward[0]->sim_split?><input name="sosim" value="<?php echo $forward[0]->sim_split?>" type="hidden"></strong>
+								</td>
+								<td>
+									<strong><?php echo $forward[0]->price_sell?></strong>
+								</td>
+								<td>
+									<b>Họ  và  Tên:</b> 										
+										<input class="input-sm" name="hovaten" type="text" value="<?php echo $forward[0]->fullname?>" readonly>
+									<b>Địa chỉ:</b> 										
+										<input class="input-sm" name="diachi" type="text" value="<?php echo $forward[0]->address?>" readonly>
+									<b>Số di động:</b>
+										<input class="input-sm"  name="mobile" type="text" value="<?php echo $forward[0]->phone?>" readonly>
+									<b>Giá bán:</b>
+										<input class="input-sm"  name="giaban" type="text" value="<?php echo $forward[0]->price_sell?>" id="giathu" readonly>
+									<b>Giá nhập</b>
+										<input type="text" value="<?php echo $forward[0]->price_buy?>" style="width: 80px;" name="gianhap" class="input-sm">
+							
+							</tr>
+					</table>
+					</td>
+				</tr>
+			
+
+				<tr>
+					<td style="height: 29px; " >Đại lý </td>
+					<td> <?php echo $forward[0]->agencyname?></td>
+				</tr>
+				<?php 
+					$interest = intval(str_replace(",", "",$forward[0]->price_buy)) - $forward[0]->price_agency;
+					$commission =  round($interest/$forward[0]->price_agency,2);// echo $commission;die;
+				?>
+				<tr>
+					<td>Gía phải trả đại lý </td>
+					<td> <?php echo $forward[0]->price_agency?>
+					
+				</tr>
+				<tr>
+					<td>Lãi còn lại:</td>
+					<td><input class="input-sm"  name="conlai" type="text" style="width: 54px" readonly id="conlai" value="<?php echo $interest?>">k</td>
+				</tr>
+				<tr>
+					<td style="height: 29px; width: 50%">Hoa hồng:</td>
+					<td style="height: 29px; width: 50%">
+					
+					<input class="input-sm"  name="post[hoahong]" type="text" readonly value="<?php echo $commission*100//+' %'?>" style="width: 49px;"></input></td>
+				</tr>
+				<tr>
+					<td style="height: 29px; width: 50%">Tự thu:</td>
+					<td style="height: 29px; width: 50%">
+					<input class="input-sm"  onkeyup="test1(this.value,document.getElementById('giathu').value);executeComma(event,this)" name="post[tuthu]" type="text" style="width: 150px;" value="" id="tuthu"></td>
+				</tr>
+				<tr>
+					<td style="height: 29px; width: 50%">Đại lý thu:</td>
+					<td style="height: 29px; width: 50%">
+					<input class="input-sm" name="last_price_agency" type="text" style="width: 150px;"  id="dlthu"></td>
+				</tr>
+				<tr>
+					<td style="height: 29px; width: 50%">Phí khác:</td>
+					<td style="height: 29px; width: 50%">
+					<input class="input-sm"  name="phikhac" type="text" style="width: 55px;"></td>
+				</tr>
+
+				<tr>
+					<td style="height: 29px; text-align: center;" colspan="2">
+					<?php //var_dump($forward);die;
+					$status =  $forward[0]->od_status;?>
+					<?php if ($status == 'deliver'){?>
+						<input  class="btn btn-danger"  name="deliver" value="Sim đã chuyển" class="go">
+					<?php }else {?>
+							<input  class="btn btn-success"  name="deliver" type="submit" value="Chuyển sim" class="go">
+					
+					<?php }?>
+					<?php if ($forward[0]->smsagency == 'enable'){?>
+					<input class="btn btn-info" type="submit" value="Da gui tin nhắn" name="smsagency" class="go">&nbsp;
+					<?php }else{?>
+					<input class="btn btn-info" type="submit" value="Nhắn tin" name="smsagency" class="go">&nbsp;
+					<?php }?> 
+				</tr>
+			</table>
+		</div>
+<?php }//End of if (isset($forward))?>
+</form>

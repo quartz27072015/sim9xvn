@@ -1,0 +1,109 @@
+<head>
+	<title>Đặt hàng thành công</title>
+<?php $this->load->view('frontend/layout/head.phtml')?>
+</head>
+<body>
+<?php $this->load->view('frontend/layout/fixed_navbar.phtml')?>
+	<div class="clearfix"></div>
+	
+	
+	<div class="container container-fix">
+		<div class="row">
+			<div class="col-md-9" style="max-width: 694px">
+				<div class="panel-fix">
+					<div class="panel-heading"><h1 class="panel-title">Đặt hàng thành công</h1></div>
+					<div class="panel-body">
+							<table class="table table-condensed table-bordered">
+								<thead>
+									<tr>
+										<th class="active text-center col-md-1"></th>
+										<th class="active text-center">Số sim</th>
+										<th class="active text-center">Giá tiền</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php $total_price = 0;?>
+									<?php foreach ($order_sim as $s){?>
+									<?php 	$lower = $s->price_sell;
+if(strlen($lower)>9){
+	                            			$lower = substr($lower, 0,strlen($lower)-9).','.substr($lower,-9,3).','.substr($lower,-6,3).','.substr($lower,-3,3);
+	                            		}else if (strlen($lower)>6 ){
+	                            			$lower = substr($lower, 0,strlen($lower)-6).','.substr($lower,-6,3).','.substr($lower,-3,3);
+	                            		} else if (strlen($lower)>3){
+											$lower = substr($lower, 0,strlen($lower)-3).','.substr($lower,-3,3);
+										}
+										
+										
+									
+										?>
+										<tr>
+											<td class="center"></td>
+											<td class="text-center"><?php echo $s->sim_split?></td>
+											<td class="text-center"><?php echo $lower;?> vnđ </td>
+											
+										</tr>
+										<?php $total_price += $s->price_sell;?>
+										<?php }//End of foreach ($order_sim as $s)?>
+										<?php 
+										//caculator total price and split by ','
+if(strlen($total_price)>9){
+	                            			$total_price = substr($total_price, 0,strlen($total_price)-9).','.substr($total_price,-9,3).','.substr($total_price,-6,3).','.substr($total_price,-3,3);
+	                            		}else if (strlen($lower)>6 ){
+	                            			$total_price = substr($total_price, 0,strlen($total_price)-6).','.substr($total_price,-6,3).','.substr($total_price,-3,3);
+	                            		} else if (strlen($lower)>3){
+											$total_price = substr($total_price, 0,strlen($total_price)-3).','.substr($total_price,-3,3);
+										}
+										?>
+									<tr>
+										<td class="text-center" colspan="2">   <strong>Tổng tiền</strong> </td>
+										<td class="text-center" colspan="2">  <span id="total"><strong><?php echo $total_price;?></strong></span> <strong>VNĐ</strong> </td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-bordered">
+								   <thead>
+								    <tr>
+								        <th colspan="2" class="active">Thông tin giao hàng</th>
+								    </tr>
+								   </thead>
+								   <tbody><tr>
+								   <td>Họ và tên:</td>
+								   <td><?php if (isset($fullname)) echo $fullname;?></td>
+								   </tr>
+								   
+								      <tr>
+								   <td>Địa chỉ:</td>
+								   <td><?php if (isset($address)) echo $address?></td>
+								   </tr>
+								   
+								         <tr>
+								   <td>Điện thoại:</td>
+								   <td><?php if (isset($phone)) echo $phone?></td>
+								   </tr>
+								   <tr>
+								   <td>Email:</td>
+								   <td><?php if (isset($email)) echo $email?></td>
+								   </tr>
+								               <tr>
+								   <td>Ghi chú:</td>
+								   <td><?php if (isset($notes))echo $notes;?></td>
+								   </tr>
+								   
+								      </tbody>
+      						</table>
+					</div>
+				</div>
+			</div>
+<?php //$this->load->view('frontend/layout/right.phtml')?>
+			<div class="clearfix"></div>
+			<!-- Tạm thời cho trỏ về sovip.com.vn -->
+			<?php $this->load->view('frontend/layout/content-bottom.phtml')?>
+			<div class="clearfix"></div>
+		
+			<?php $this->load->view('frontend/layout/footer.phtml')?>
+			<div class="clearfix"></div>
+</div>
+</div>
+<?php $this->load->view('frontend/layout/modal.phtml')?>
+
+</body>

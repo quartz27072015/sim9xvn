@@ -1,0 +1,128 @@
+<head>
+	<title>Đặt mua sim <?php echo $order_sim[0]->sim_original?></title>
+<?php $this->load->view('frontend/layout/head.phtml')?>
+</head>
+<body>
+<?php $this->load->view('frontend/layout/fixed_navbar.phtml')?>
+	<div class="clearfix"></div>
+	
+	
+	<div class="container container-fix">
+		<div class="row">
+			<div class="col-md-9" style="max-width: 694px">
+				<div class="panel-fix">
+					<div class="panel-heading"><h1 class="panel-title">Đặt mua sim</h1></div>
+					<div class="panel-body">
+						<form onsubmit="return checkorder()" action="<?php echo base_url()?>order/don-hang.html" id="ordered" method="POST" class="form-horizontal">
+							<table class="table table-condensed table-bordered">
+								<thead>
+									<tr>
+										<th class="active text-center col-md-1"></th>
+										<th class="active text-center">Số sim</th>
+										<th class="active text-center">Giá tiền</th>
+										<th class="active"></th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php $total_price = 0;?>
+									<?php foreach ($order_sim as $s){?>
+									<?php 	$lower = $s->price_sell;
+	                            		if(strlen($lower)>9){
+	                            			$lower = substr($lower, 0,strlen($lower)-9).','.substr($lower,-9,3).','.substr($lower,-6,3).','.substr($lower,-3,3);
+	                            		}else if (strlen($lower)>6 ){
+	                            			$lower = substr($lower, 0,strlen($lower)-6).','.substr($lower,-6,3).','.substr($lower,-3,3);
+	                            		} else if (strlen($lower)>3){
+											$lower = substr($lower, 0,strlen($lower)-3).','.substr($lower,-3,3);
+										}
+										
+										$total_price += $s->price_sell;
+										?>
+										
+										<tr>
+											<td class="center"><input type="hidden" value="<?php echo $s->id_sim?>" name="order_idsim[]"></td>
+											<td class="text-center"><?php echo $s->sim_split?></td>
+											<td class="text-center"><?php echo $lower;?> vnđ </td>
+											<td class="text-center"><a data-sim="undefined" class="delcart" href="javascript://">Xóa</a></td>
+											
+										</tr>
+										<?php }//End of foreach ($order_sim as $s)?>
+										<?php 
+										//caculator total price and split by ','
+
+										if(strlen($total_price)>9){
+	                            			$total_price = substr($total_price, 0,strlen($total_price)-9).','.substr($total_price,-9,3).','.substr($total_price,-6,3).','.substr($total_price,-3,3);
+	                            		}else if (strlen($total_price)>6 ){
+	                            			$total_price = substr($total_price, 0,strlen($total_price)-6).','.substr($total_price,-6,3).','.substr($total_price,-3,3);
+	                            		} else if (strlen($total_price)>3){
+											$total_price = substr($total_price, 0,strlen($total_price)-3).','.substr($total_price,-3,3);
+										}
+										?>
+									<tr>
+										<td class="text-center" colspan="2">   <strong>Tổng tiền</strong> </td>
+										<td class="text-center" colspan="2">  <span id="total"><strong><?php echo $total_price;?></strong></span> <strong>VNĐ</strong> </td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="row"> 
+								<div class="col-md-8">
+									<div class="form-group form-group-sm">
+										<label class="control-label col-md-4">Họ và tên: <span class="red">(*)</span></label>
+										<div class="col-md-7"><input class="form-control" name="fullname"></div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label class="control-label col-md-4">Điện thoại: <span class="red">(*)</span></label>
+										<div class="col-md-7"><input class="form-control" name="phone"></div>
+									</div>
+
+									<div class="form-group form-group-sm">
+										<label class="control-label col-md-4">Địa chỉ: <span class="red">(*)</span></label>
+										<div class="col-md-7">
+											<textarea class="form-control" name="address"></textarea>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label class="control-label col-md-4">Email: <span class="red">(*)</span></label>
+										<div class="col-md-7">
+											<textarea class="form-control" name="email"></textarea>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<label class="control-label col-md-4">Ghi chú:</label>
+										<div class="col-md-7">
+											<textarea style="height: 50px;" name="note" class="form-control"></textarea>
+										</div>
+									</div>
+									<div class="form-group form-group-sm">
+										<div class="col-md-12">
+											<div class="text-center">
+												<button class="btn btn-success" name="submit">Đặt mua</button>  
+												<!-- <button class="btn btn-danger" type="reset">Làm lại</button> -->
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-4 hidden-xs">
+									<ul>
+										<li>Sim mới chưa có người sử dụng.</li>
+										<li>Hưởng các khuyến mãi hiện hành của nhà mạng.</li>
+										<li>Khách hàng sẽ được đăng ký chính chủ khi mua sim.</li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+<?php //$this->load->view('frontend/layout/right.phtml')?>
+			<div class="clearfix"></div>
+			<!-- Tạm thời cho trỏ về sovip.com.vn -->
+			<?php $this->load->view('frontend/layout/content-bottom.phtml')?>
+			<div class="clearfix"></div>
+		
+			<?php $this->load->view('frontend/layout/footer.phtml')?>
+			<div class="clearfix"></div>
+</div>
+</div>
+<?php $this->load->view('frontend/layout/modal.phtml')?>
+
+</body>

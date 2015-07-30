@@ -1,0 +1,63 @@
+<head>
+	<title><?php //Show title by default
+if (isset($pagecontent)){?>
+			<?php foreach ($pagecontent as $pc){?>
+				<?php if ($pc->location=='title'){?>
+				<?php echo $pc->title?>
+		
+				<?php }?>
+			<?php }?>
+		<?php }?>
+		<?php 
+		//Show title by head
+		if(isset($flag) && $flag =='head'){
+				echo '- Nhà mạng '.$flag_provider.'- Đầu số '.$flag_head;
+				if (isset($flag_kind) && $flag_kind != null){
+					echo ' - '.$flag_kind[0]->fullname;
+				}
+		 }
+		 //Show title follow filter
+		 if (isset($flag) && $flag == 'filter'){
+			 if(isset($flag_provider) && $flag_provider != null){
+		 	echo '- Nhà mạng '.$flag_provider;
+			}
+		 	if (isset($flag_kind) && $flag_kind != null){
+		 		echo ' - '.$flag_kind[0]->fullname;
+		 	}
+		 }
+		 //Show title by search
+		 if (isset($flag) && $flag == 'search'){
+		 	foreach ($f_s_arr as $f){
+		 		echo $f;
+		 	}
+		 }
+		 ?>
+		</title>
+<?php $this->load->view('frontend/layout/head.phtml')?>
+</head>
+<body><?php //var_dump($pagecontent);die;?>
+<div class="clearfix"></div>
+<?php $this->load->view('frontend/layout/fixed_navbar.phtml')?>
+	<div class="clearfix"></div>
+
+	<div class="container container-fix">
+		<?php $this->load->view('frontend/layout/nav.phtml')?>	
+		<div class="clearfix"></div>
+		
+		<div class="row">
+			<?php $this->load->view('frontend/layout/content.phtml')?>
+			
+			<?php $this->load->view('frontend/layout/right.phtml')?>
+			<div class="clearfix"></div>
+			
+			<!-- Tạm thời cho trỏ về sovip.com.vn -->
+			<?php $this->load->view('frontend/layout/content-bottom.phtml')?>
+			<div class="clearfix"></div>
+		
+			<?php $this->load->view('frontend/layout/footer.phtml')?>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<?php $this->load->view('frontend/layout/modal.phtml')?>
+	
+</body>

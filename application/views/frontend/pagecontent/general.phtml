@@ -1,0 +1,46 @@
+<head>
+	<title>		<?php if (isset($pagecontent)){?>
+			<?php foreach ($pagecontent as $pc){?>
+				<?php if ($pc->urlfriendly==$url){?>
+				<?php echo $pc->title?>
+		
+				<?php }?>
+			<?php }?>
+		<?php }?></title>
+<?php $this->load->view('frontend/layout/head.phtml')?>
+</head>
+<body>
+<?php $this->load->view('frontend/layout/fixed_navbar.phtml')?>
+	<div class="clearfix"></div>
+<div class="container container-fix">
+		<div class="row">
+			<div class="col-md-9" style="max-width: 694px">
+				<div class="panel-fix">
+						<?php if (isset($pagecontent)){?>
+			<?php foreach ($pagecontent as $pc){?>
+				<?php if ($pc->urlfriendly==$url){?>
+		
+			
+					<div class="panel-heading">
+						<h1 class="panel-title"><?php  echo $pc->title?></h1>
+					</div>
+					<div class="panel-body">
+					<?php echo $pc->content?>
+					
+					</div>
+						<?php }?>
+			<?php }?>
+		<?php }?>
+				</div>
+			</div>
+			<?php $this->load->view('frontend/layout/right.phtml')?>
+			<div class="clearfix"></div>
+			<!-- Tạm thời cho trỏ về sovip.com.vn -->
+			<?php $this->load->view('frontend/layout/content-bottom.phtml')?>
+			<div class="clearfix"></div>
+		
+			<?php $this->load->view('frontend/layout/footer.phtml')?>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	</body>

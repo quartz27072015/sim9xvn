@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<?php $this->load->view('admin/layout/header.phtml')?>
+<meta content="en-us" http-equiv="Content-Language">
+<link href="/jshtmlcss/css/isms.css" rel="stylesheet">
+<style>
+.tab
+{
+	width:100%;
+	margin:0 auto;
+}
+.tab thead tr td
+{
+background-color:#CCCCCC;	
+line-height:25px;
+font-weight:bold;
+font-family:Tahoma,Arial, sans-serif;
+margin:0 auto;
+text-align:center;
+font-size:12px;
+}
+.tab tr td
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	padding:0 5px 0 5px;
+	text-align:left;
+	border-radius:3px;
+	webkit-border-radius:3px;
+	moz-border-radius:3px;
+}
+.tab tr td.rows
+{
+	background-color:#F2F2F2;
+	font-family:Arial, Helvetica, sans-serif;
+}
+form
+{	margin:0;
+padding:0;
+}
+</style>
+<body>
+<div class="modal fade" id="minimodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+ 
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table cellspacing="0" cellpadding="0" style="width: 100%">
+ <tbody><tr>
+  <td style="text-align: center">&nbsp;</td>
+  <td class="fsms" style="text-align: center; background-color: #FFFFFF;">
+
+   
+   <div class="panel panel-success">
+     <div class="panel-heading">
+       <h2 class="panel-title">Sửa SIM</h2>
+     </div>
+
+   </div>
+   <br>
+   <div id="thongbao">
+   </div>
+   <br>
+   <strong><span style="color: #99CC00">&nbsp;</span><span style="color: #FF0000"></span></strong><br>
+   
+  
+	<br>
+   <br>
+   <div style="width: 100%; text-align: center">
+        <form action="" method="post">
+
+    <table class="table table-bordered">
+     <thead>
+      <tr>
+       <th class="active">STT</th>
+       <th class="active">Số sim</th>
+       <th class="active">Giá bán</th>
+       <th class="active">Gía nhập</th>
+       <th class="active">Giá đại lý</th>		
+       <th class="active">Tùy chọn</th>
+      </tr>
+     </thead>
+           <tbody>
+           <!-- If no input show empty result -->
+           		<tr>
+           		<input type="hidden" value="<?php echo $simcheck[0]->id_sim?>" name="id_sim"/>
+				      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;">
+				      <p style="margin-left: 5px; margin-right: 5px"><?php echo $simcheck[0]->id_sim?></p>
+				      </td>
+				      
+				      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;">
+				      <input value="<?php echo $simcheck[0]->sim_split?>" type="text" name="sim_split" />
+				      </td>
+				     <?php  $sell = $simcheck[0]->price_sell;
+					                            		if(strlen($sell)>9){
+					                            			$sell = substr($sell, 0,strlen($sell)-9).','.substr($sell,-9,3).','.substr($sell,-6,3).','.substr($sell,-3,3);
+					                            		}else if (strlen($sell)>6 ){
+					                            			$sell = substr($sell, 0,strlen($sell)-6).','.substr($sell,-6,3).','.substr($sell,-3,3);
+					                            		} else if (strlen($sell)>3){
+															$sell = substr($sell, 0,strlen($sell)-3).','.substr($sell,-3,3);
+														}
+														?>
+				      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;">
+				      <input value="<?php echo $sell?>" type="text" name="price_sell"/>
+				      </td>
+				      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;">
+				      <input value="<?php echo $simcheck[0]->price_buy?>" type="text" name="price_buy"/>
+						<?php 
+						$priceagency = $simcheck[0]->price_agency;
+	                            		if(strlen($priceagency)>9){
+	                            			$priceagency = substr($priceagency, 0,strlen($priceagency)-9).','.substr($priceagency,-9,3).','.substr($priceagency,-6,3).','.substr($priceagency,-3,3);
+	                            		}else if (strlen($priceagency)>6 ){
+	                            			$priceagency = substr($priceagency, 0,strlen($priceagency)-6).','.substr($priceagency,-6,3).','.substr($priceagency,-3,3);
+	                            		} else if (strlen($priceagency)>3){
+											$priceagency = substr($priceagency, 0,strlen($priceagency)-3).','.substr($priceagency,-3,3);
+										}
+												?>
+				      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px; color: #FF0000;">
+				      <input value="<?php echo $priceagency?>" type="text" name="price_agency"/>
+				      </td>
+				      <td style=""> 
+				             <a class="btn btn-sm btn-danger"  href="<?php echo base_url()?>admin/sim/del/<?php echo $simcheck[0]->id_sim?>"><i class="glyphicon glyphicon-trash"></i> Xóa</a>
+					</td>
+		     </tr>
+
+     
+          <tr>
+      <td style="background-color: #FFFFFF" colspan="9">
+      <div id="dv106">
+       <br>
+      </div>
+      <div style="text-align: center">
+      
+<input type="submit" value="Xác nhận"/>      
+</div>
+		</td>
+     </tr>
+         </tbody>
+         </table>
+   
+    </form>
+   </div>
+
+
+  <br>
+  <br>
+  <br>
+
+  </td>
+ </tr>
+</tbody></table>
+</body>

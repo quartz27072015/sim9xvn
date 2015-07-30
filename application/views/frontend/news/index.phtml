@@ -1,0 +1,35 @@
+<head>
+<title><?php echo $newsonly[0]->title;?></title>
+<?php $this->load->view('frontend/layout/head.phtml')?>
+</head>
+<body>
+<?php $this->load->view('frontend/layout/fixed_navbar.phtml')?>
+	<div class="clearfix"></div>
+
+	<div class="container container-fix">
+		<div class="row">
+			<div class="col-md-9" style="max-width: 694px">
+				<div class="panel-fix">
+				<?php foreach ($newsonly as $n) {?>
+					<div class="panel-heading">
+						<h1 class="panel-title"><?php echo $n->title;?></h1>
+					</div>
+					<div class="panel-body">
+					
+					
+						<?php echo $n->content;?>
+					</div>
+					<?php }?>
+				</div>
+			</div>
+			<?php $this->load->view('frontend/layout/right.phtml')?>
+			<div class="clearfix"></div>
+			<!-- Tạm thời cho trỏ về sovip.com.vn -->
+			<?php $this->load->view('frontend/layout/content-bottom.phtml')?>
+			<div class="clearfix"></div>
+		
+			<?php $this->load->view('frontend/layout/footer.phtml')?>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</body>

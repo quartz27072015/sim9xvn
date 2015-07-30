@@ -1,0 +1,8 @@
+<div class="clearfix"></div>
+<div class="footer">
+<?php if (isset($pagecontent)){?>
+<?php foreach ($pagecontent as $pc){?>
+<?php if($pc->location=='footer') echo $pc->content?> 
+<?php }?>
+<?php }?>
+</div>

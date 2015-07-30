@@ -1,0 +1,27 @@
+<form method="post" action="" class="form-inline">
+	<input class="input-sm form-control"  type="text" name="fullname" placeholder="Họ Và tên khách hàng">            
+    <input  class="input-sm form-control" type="text" name="number"  placeholder="Số Đặt / Điện Thoại"> 
+	    <select name="day" class="form-control input-sm hidden-xs">
+		    <option value="" selected="selected">Ngày</option>
+		    <?php for($i=0;$i<31;$i++){?>
+		    <option value="<?php if ($i<10) echo sprintf("%02d",$i+1); else echo $i+1; ?>"><?php echo $i+1; ?></option>
+			<?php }?>
+	    </select>
+		<select name="month" class="form-control input-sm hidden-xs">
+			<option value="" selected="selected">Tháng</option>
+			<?php for($i=0;$i<12;$i++){?>
+			<option value="<?php if ($i<10) echo sprintf("%02d",$i+1);else echo $i+1; ?>"><?php echo $i+1; ?></option>
+			<?php }?>
+		</select>
+		<select name="year" class="form-control input-sm hidden-xs">
+			<option value="" selected="selected">Năm</option>
+			<?php for($i=2010;$i<2020;$i++){?>
+			<option value="<?php echo $i+1; ?>"><?php echo $i+1; ?></option>
+			<?php }?>
+		</select>
+	<input type="text" name="address" placeholder="Địa chỉ" class="input-sm form-control">
+	<input type="submit" class="btn btn-sm btn-warning" name="search" value="Tìm kiếm">
+        <a href="<?php echo base_url()?>admin/order/listdel" class="btn pull-right" style="border: 1px solid"> Đơn hàng đã xóa</a>
+
+
+</form>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SIM | BlueWhale Admin</title>
+
+<?php $this->load->view('admin/layout/header.phtml');?>
+ <!--  -->	<script src="<?php echo base_url();?>skin/backend/js/jquery-ui/jquery.ui.mouse.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>skin/backend/js/jquery-ui/jquery.ui.sortable.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>skin/backend/js/table/jquery.dataTables.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+            $('.datatable').dataTable();
+			setSidebarHeight();
+        });
+    </script>
+</head>
+<body>
+    <div class="container_12">
+  <?php $this->load->view('admin/layout/nav-main.phtml');?>
+  
+    
+        <div class="grid_10">
+            <div class="box round first grid">
+            <form name="myForm" method="post" action="">
+                <h2>Danh sách đại lý
+	                <button style="float: right; padding-top: -5px" onclick="window.location.href='<?php echo base_url()?>admin/agency/add'">
+	                Thêm Đại lý</button>
+                </h2>                
+                <div class="block">                  
+                    <table class="data display datatable" id="dataTable">
+					<thead>
+						<tr>
+						    <th style="width: 50px;">Select</th>  
+							<th>STT</th>
+							<th>Tên</th>
+							<th >Phần trăm (%)</th>	
+							<th >Tùy chọn</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($agency as $arr){?>
+							<tr >
+							    <td><input type="checkbox"/></td>  
+								<td><?php echo $arr->profileid?></td>
+								<td><?php echo $arr->name?>
+									( <a style="color: blue" href="<?php echo base_url()?>admin/agency/editprofile/<?php echo  $arr->profileid;?>">Xem chi tiết...</a> )
+								</td>
+								<td>
+									<?php foreach ($agencypercent as $arrpercent){?>
+									<?php if ($arr->profileid == $arrpercent->profileid){?>
+										<p style="margin-bottom: 0px"><?php echo $arrpercent->lower.' - '.$arrpercent->upper.": ".$arrpercent->percent."%";?></p>
+									<?php }?>
+									<?php }?>
+								
+								</td>
+	
+								<td class="center"> 
+								     <a style="color:blue" href="<?php echo base_url()?>admin/agency/percent-agency">Sửa (%)</a>
+								     <a style="color:red" href="<?php echo base_url()?>admin/agency/del/<?php echo $arr->profileid?>">Xóa</a>
+								</td>
+							</tr>
+						<?php }?>
+
+				
+					</tbody>
+				</table>
+                    
+                    
+                    
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+  <?php $this->load->view('admin/layout/footer.phtml');?>
+    
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+<script>
+function select(a) {
+    var theForm = document.getElementById('form');
+    for (i=0; i<theForm.elements.length; i++) {
+        if (theForm.elements[i].name=='checkbox[]')
+            theForm.elements[i].checked = a;
+    }
+}
+</script>
+</head>
+<body>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<?php $this->load->view('admin/layout/nav-main.phtml')?>
+
+<div class="container">
+	<form id="form" method="post" action="<?php echo base_url()?>admin/user">
+		<div class="panel panel-success">
+		  	<div class="panel-heading">
+		    	<h2 class="panel-title">Users</h2>
+		  	</div>
+		  	<div class="panel-body">
+		 
+			  <div class="pull-right">
+			  		<a class="iframe btn btn-sm btn-success" href="<?php echo base_url()?>admin/user/add">Thêm tài khoản</a>
+			  		<input type="submit" name="delselect" class="btn btn-sm btn-danger" value="Xóa chọn"/>  		
+			  </div>
+					<table class="table table-hover table-condensed" >
+				
+						<thead>
+						<tr style="height:40px">
+							<th class="active" style="width: 15%">
+								<strong><a href="javascript:select(1)">Check All</a> |<a href="javascript:select(0)">Uncheck All</a></strong>
+							</th>
+							<th class="active" style="height: 12px; font-weight: bold; width: 10%" align="center">STT</th>
+							<th class="active" style="height: 12px; width: 15%">Tên đăng nhập</th>
+							<th class="active" style="height: 12px;;">Quyền quản lý</th>
+							<th class="active" width="6%" style="width: 10%; height: 12px;"><b>Tùy chọn</b></th>
+						</tr>
+						</thead>
+						<?php if (isset($users)){?>
+							<?php foreach ($users as $u){?>
+								<?php if ($u->username == 'admin'){?>
+									<tr class="">
+										<td align="center"></td>
+										<td align="center"><?php echo $u->id?></td>
+										<td><?php echo $u->username?></td>
+										<td><div style="color: red"><b>FULL quyền</b></div></td>
+										<td align="center">
+											<a class="iframe btn btn-sm btn-info"  href="<?php echo base_url()?>admin/user/edit/<?php echo $u->id?>">Đổi mật khẩu</a>
+										</td>
+									</tr>
+								<?php } else {?>
+									<tr class="alt">
+										<td align="center">
+											<input type="checkbox" name="checkbox[]" value="<?php echo $u->id;?>"/>
+										</td>
+										<td align="center"><?php echo $u->id?></td>
+										<td><?php echo $u->username?></td>
+										<td><?php echo $u->rules_description?></td>
+										<td align="center">							 
+											<a class="iframe btn btn-sm btn-warning"  href="<?php echo base_url()?>admin/user/edit/<?php echo $u->id?>">Sửa</a>
+											<a class="btn btn-sm btn-danger"  href="<?php echo base_url()?>admin/user/del/<?php echo $u->id?>" onclick="return conf(' Tên đăng nhập ')">Xóa</a>																
+										</td>
+								</tr>
+								<?php }?>
+							<?php }//End of foreach?>
+						<?php }//ENd of is (isset())?>
+					</table>			
+			</div>
+		</div>	
+	</form>
+</div>
+</body>
+
+
+
+
+
+
+</html>

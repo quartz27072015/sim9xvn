@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SIM | BlueWhale Admin</title>
+
+<?php $this->load->view('admin/layout/header.phtml');?>
+ <!--  -->	<script src="<?php echo base_url();?>skin/backend/js/jquery-ui/jquery.ui.mouse.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>skin/backend/js/jquery-ui/jquery.ui.sortable.min.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>skin/backend/js/table/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setupLeftMenu();
+            $('.datatable').dataTable();
+			setSidebarHeight();
+        });
+    </script>
+        <!-- add row -->
+    <script type="text/javascript">
+		    function addRow(tableID) {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        var colCount = table.rows[0].cells.length;
+        for(var i=0; i<colCount; i++) {
+            var newcell = row.insertCell(i);//alert(table.rows[1].cells[i].innerHTML);
+            newcell.innerHTML = table.rows[1].cells[i].innerHTML;//alert(document.getElementsByTagName('label')[0].innerHTML);
+
+            switch(newcell.childNodes[0].type) {
+	            case "hidden":
+	            	newcell.childNodes[0].value = "";
+                case "text":
+                    newcell.childNodes[0].value = "";
+                    break;         
+                case "checkbox":
+                    newcell.childNodes[0].checked = false;
+                    newcell.childNodes[0].value = "";
+                    break;
+                case "select-one":
+                    newcell.childNodes[0].selectedIndex = 0;
+                    break;
+            }
+        }
+    }
+    function deleteSelectedRow(tableID) {
+        try {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+        for(var i=0; i<rowCount; i++) {
+            var row = table.rows[i];
+            var chkbox = row.cells[0].childNodes[0];
+            if(null != chkbox && true == chkbox.checked) {
+                if(rowCount <= 1 || table.rows[1].cells[0].childNodes[0].checked == true) {
+                    alert("Cant delete all rows");
+                    break;
+                }
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+            }
+        }
+        }catch(e) {
+            alert(e);
+        }
+    }
+
+	</script>
+</head>
+<body>
+    <div class="container">
+  <?php $this->load->view('admin/layout/nav-main.phtml');?>
+
+        <div class="panel panel-success">
+	        <div class="panel-heading"><h2 align="center" class="panel-title">Phần trăm(%) giá bán</h2>
+	        </div>
+            <div class="panel-body">
+                <form name="myForm" onsubmit="return validateForm()" action="<?php echo base_url()?>admin/sim/percent-sell" method="post" >            
+            	<INPUT style="margin-top: 5px; float: right;" type="button" value="Thêm điều kiện" onclick="addRow('dataTable')" />  					
+  				<INPUT name="delselect" style="margin-top: 5px; color: red;float: right;" type="submit" value="Xóa chọn"  />
+                <p style="margin-bottom: 0px;color: red">*Chú ý: KT các điều kiện cho đúng!</p>             
+                <div class="block">                                  
+                    <table class="data display datatable" id="dataTable">
+					<thead>
+						<tr>
+							<th>Select</th>
+							<th>Số thứ tự</th>
+							<th>Ngưỡng dưới (x1000 VNĐ)</th>
+							<th>Ngưỡng trên (x1000 VNĐ)</th>
+							<th>Phần trăm(%)</th>
+							<th>Trạng thái</th>
+							<th>Tùy chọn</th>
+						</tr>
+					</thead>
+					<tbody>
+					<?php if(!isset($sellpercent) || $sellpercent == null){?>
+					<tr class="odd gradeX">
+								<td><input type="checkbox" name="checkbox[]" value=""/></td>
+								<td><input type="hidden" name="percentid[]" value=""/><label></label></td>
+							  	<td><input type="text" name="lower[]"  value="" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="upper[]" value="" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="percent[]" value=""autocomplete="on" placeholder="0" required/></td>
+								<td>
+									<select name="status[]">									
+										<option value="1">Enable</option>
+										<option value="0">Disable</option>								
+									</select>
+								</td>
+								<td><a style="color:red" href="<?php echo base_url()?>admin/sim/del-percent-sell/<?php echo $sp->percentid?>">Xóa></a></td>
+							</tr>
+						<?php }else {foreach ($sellpercent as $sp){?>
+							<tr class="odd gradeX">
+								<td><input type="checkbox" name="checkbox[]" value="<?php echo $sp->percentid?>" /></td>
+								<td><input type="hidden" name="percentid[]" value="<?php echo $sp->percentid?>"/><label><?php echo $sp->percentid?></label></td>
+							  	<td><input type="text" name="lower[]"  value="<?php echo $sp->lower/1000?>" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="upper[]" value="<?php echo $sp->upper/1000?>" autocomplete="on" placeholder="0" required/></td>
+								<td><input type="text"  name="percent[]" value="<?php echo $sp->percent?>"autocomplete="on" placeholder="0" required/></td>
+								<td>
+									<select name="status[]">
+									<?php if ($sp->status == 1){?>
+										<option value="1">Enable</option>
+										<option value="0">Disable</option>
+										<?php }else{?>
+										 <option value="0">Disable</option>
+										<option value="1">Enable</option> 									
+										<?php }?>
+									</select>
+								</td>
+								<td><a style="color:red" href="<?php echo base_url()?>admin/sim/del-percent-sell/<?php echo $sp->percentid?>">Xóa</a></td>								
+							</tr>
+						<?php }//End of foreach ($sellpercent as $sp?>
+					<?php }  //End of if(isset($sellpercent)?>
+						
+					</tbody>
+				</table>
+				    <input type="submit" style="float: right; font-size: 16px; background-color: orange; border-radius: 5px; padding-top: 3px; padding-bottom: 3px; margin-top: 4px; width: 100px;color: white" value="Đồng ý"/>
+                       </form> 
+              </div>
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+    
+</body>
+</html>

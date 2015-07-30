@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<head>
+
+<?php $this->load->view('admin/layout/header.phtml');?>
+<link rel="stylesheet" type="text/css" href="/jshtmlcss/admin/style.css" />
+<link rel="stylesheet" type="text/css" href="/jshtmlcss/css/admin_table.css" />
+<link rel="stylesheet" type="text/css" href="/jshtmlcss/admin/cssmenu.css" />
+
+<script type="text/javascript" src="/jshtmlcss/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+
+<link rel="stylesheet" href="/jshtmlcss/admin/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="/jshtmlcss/admin/css/bootstrap-theme.min.css">
+
+
+</head>
+<?php $this->load->view('admin/layout/modal.phtml')?>
+<form id="noteadd" method="post" action="<?php echo base_url()?>admin/order/<?php echo $orderid?>/detail/<?php echo $detailid?>/noteadd/" class="form-inline">
+
+
+<div class="form-group form-group-sm">
+<label class="control-label col-xs-4">Nội dung:</label>
+<div class="col-xs-6">
+<?php //var_dump($detailid);die;?>
+<textarea name="contentnote" style="height:100px" class="form-control" id="note"></textarea>&nbsp;<br />
+
+</div>
+<div class="col-xs-2"><input class="btn btn-sm btn-success" name="submit" type="submit" value="Lưu" /></div>
+</div>
+
+</form>
+
+

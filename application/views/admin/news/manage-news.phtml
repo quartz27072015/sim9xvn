@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+</head>
+<body>
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%">
+ 
+       </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+  <?php $this->load->view('admin/layout/nav-main.phtml');?>
+  <form action="<?php echo base_url()?>admin/news" method="post">
+        <div class="panel panel-success" style="width: 99%">
+            <div class="panel-heading"><h2>Tin tức</h2></div>                
+                <div class="panel-body">  
+                <div class="pull-right">
+					<a class="btn btn-sm btn-success iframe" href="<?php echo base_url()?>admin/news/add">Thêm mới</a>
+					
+					<input type="submit" name="delselect" class="btn btn-sm btn-danger" value="Xóa chọn"/>
+				</div>   
+				<div class="clearfix"></div> 
+			<div class="table-condensed">            
+                    <table class="table table-bordered" >
+					<thead>
+						<tr>
+						    <th style="width: 50px;">Select</th>  
+							<th>STT</th>
+							<th style="width: 200px">Tiêu đề</th>
+							<th >Nội dung</th>	
+							<th style="width:150px">Tùy chọn</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php //var_dump($news);die;
+						foreach ($news as $arr){?>
+							<tr >
+							    <td><input type="checkbox" name="checkbox[]" value="<?php echo $arr->id;?>"/></td>  
+								<td><?php echo $arr->id;?></td>
+								<td><?php echo $arr->title;?></td>
+								<td><?php if( strlen($arr->content) >= 200)echo substr($arr->content,0,200).'(<a style="color: blue">......</a>)'; else echo $arr->content;?></td>
+	
+								<td style="width: 100px"> 
+								     <a class="iframe btn btn-sm btn-info" href="<?php echo base_url()?>admin/news/edit/<?php echo $arr->id?>" title=""> <i class="glyphicon glyphicon-show"></i>  Sửa</a>
+                <a class="btn btn-sm btn-danger"  href="<?php echo base_url()?>admin/news/del/<?php echo $arr->id?>" onclick="return conf('<?php echo $arr->title?>')"><i class="glyphicon glyphicon-trash"></i> Xóa</a>
+								</td>
+							</tr>
+						<?php }?>				
+					</tbody>
+				</table>    
+				</div>                
+                </div>
+            </div>
+    </form>   
+</body>
+</html>

@@ -1,0 +1,85 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?php echo base_url()?>admin"><i class="ico-home"></i>Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+      	<li><a href="<?php echo base_url()?>admin/order" >Đơn hàng</a></li>
+      	 <li class="dropdown">
+          <a href="?act=giaodich" class="dropdown-toggle" data-hover="dropdown">Công Nợ <span class="caret"></span></a>
+          	<ul class="dropdown-menu" role="menu">
+          		<li><a href="?act=giaodichtrongngay" >Giao Dịch Trong Ngày</a></li>
+          		<li class="divider"></li><li><a href="?act=note" >Note</a></li>
+          		<li class="divider"></li><li><a href="?act=sosach" >Sổ nháp</a></li>
+          		<li class="divider"></li></ul>
+          </li> 
+        <li><a href="<?php echo base_url()?>admin/checksim" >Check sim</a></li>
+        <li><a href="<?php echo base_url()?>admin/news" >Tin tức</a></li>
+        <li><a href="<?php echo base_url()?>admin/pagecontent" >Trang</a></li>
+        <li class="dropdown"><a href="<?php echo base_url()?>admin/sim" class="dropdown-toggle" data-hover="dropdown">SIM<span class="caret"></span></a>
+          	<ul class="dropdown-menu" role="menu">
+          		<li><a href="<?php echo base_url()?>admin/sim/delsold" >Xóa sim đã bán</a></li>
+          		<li class="divider"></li>
+          		<li><a href="<?php echo base_url()?>admin/sim/delduplicate" >Xóa trùng</a></li>
+          		<li class="divider"></li>
+          		<li><a href="<?php echo base_url()?>admin/sim/import" >Nhập sim</a></li>
+          		<li class="divider"></li>
+          		 <li><a href="<?php echo base_url()?>admin/sim/percent-sell" >Tăng %</a></li> 
+          		 <li class="divider"></li>
+          		 <li><a href="<?php echo base_url()?>admin/sim" >Quản lý sim</a></li> 
+          		<!--  <li class="divider"></li>
+          		 <li><a href="<?php echo base_url()?>admin/sim/mystore" >Quản lý kho nhà</a></li> --> 
+          	</ul>
+         </li>
+         <li><a href="">Quản lý cod</a></li>
+          <li class="dropdown"><a class="dropdown-toggle" data-hover="dropdown">Thành viên<span class="caret"></span></a>
+          	<ul class="dropdown-menu" role="menu">
+				<li><a href="<?php echo base_url()?>admin/user" >Users</a></li>
+				<li class="divider"></li>
+				<li><a href="<?php echo base_url()?>admin/agency" >Đại lý</a></li>
+          	</ul>
+          </li>
+     
+          <li class="dropdown"><a href="" class="dropdown-toggle" data-hover="dropdown">Tiện ích <span class="caret"></span></a>
+          	<ul class="dropdown-menu" role="menu">
+	          	<!-- <li><a href="?act=seo" >Seo website</a></li>
+	          	<li class="divider"></li>
+	          	<li><a href="?act=sethome" >Đưa bảng số lên trang chủ</a></li>
+	          	<li class="divider"></li>
+				<li><a href="?act=seo" >Backup dữ liệu</a></li> -->
+				<li><a href="<?php echo base_url()?>admin/tools/checksites" >Check sites</a></li>
+
+          	</ul>
+          </li>
+           <li class="dropdown"><a href="" class="dropdown-toggle" data-hover="dropdown">System <span class="caret"></span></a>
+          		<ul class="dropdown-menu" role="menu">
+	          		
+					<li><a href="<?php echo base_url()?>admin/tools/configsms" >Cấu hình SMS</a></li>
+				</ul>
+			</li>
+				
+  <!--
+    		<li class="dropdown">
+		          <a data-hover="dropdown" class="dropdown-toggle" href="?act=thoat">[Users] <span class="caret"></span></a>
+		          <ul role="menu" class="dropdown-menu">
+			          <li><a href="?act=changerpass">Đổi mật khẩu</a></li>
+			          <li class="divider"></li>
+			          <li><a href="?act=changerpass">Đăng xuất</a></li>
+			          <li class="divider"></li>
+		          </ul>
+          	</li> -->
+       </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<?php $this->load->view('admin/layout/header.phtml')?>
+    <script type="text/javascript">
+
+        function validateForm() {
+            var x = document.forms["myForm"]["name"].value;
+            if (x == null || x == "") {
+                alert("Bắt buộc nhập tên!");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3>Thêm đại lý</h3>
+            </div>
+                <div class="panel-body ">
+                <?php if (isset($agencyprofile)){?>
+                    <form name="myForm" onsubmit="return validateForm()" action="<?php echo base_url()?>admin/agency/editprofile/<?php echo $agencyprofile[0]->profileid?>" method="post" >
+	                    <table class="form">
+	                    	
+	               			<tr>
+	                            <td style="width: 92px;"><label>Tên :</label><p style="color: red; float: right">*&nbsp;</p></td>
+	                            <td><input value="<?php echo $agencyprofile[0]->agencyname?>" id="name" name="name" type="text" class="mini" /></td>
+                        	</tr>
+	                         <tr>
+	                            <td><label>Email :</label></td>
+	                            <td><input value="<?php echo $agencyprofile[0]->agencyemail?>" style="width: 200px" id="email" name="email" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>Address :</label></td>
+	                            <td><input value="<?php echo $agencyprofile[0]->agencyaddress?>" style="width: 700px" id="address" name="address" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>Mobile :</label></td>
+	                            <td><input value="<?php echo $agencyprofile[0]->agencymobile?>" style="width: 100px" id="mobile" name="mobile" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>CMTND :</label></td>
+	                            <td><input value="<?php echo $agencyprofile[0]->agencypassport?>" style="width: 110px" id="passport" name="passport" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>Website :</label></td>
+	                            <td><input value="<?php echo $agencyprofile[0]->agencywebsite?>" style="width: 200px" id="website" name="website" type="text" class="mini" /></td>
+                        	</tr>                               
+	                       </table>
+                         <input type="submit" value="Lưu"/>
+                        </form>
+                         <?php } else {?>
+                          <form name="myForm" onsubmit="return validateForm()" action="<?php echo base_url()?>admin/agency/add" method="post" >
+	                    <table class="form">
+	                    	
+	               			<tr>
+	                            <td style="width: 92px;"><label>Tên :</label><p style="color: red; float: right">*&nbsp;</p></td>
+	                            <td><input  id="name" name="name" type="text" class="mini" /></td>
+                        	</tr>
+	                         <tr>
+	                            <td><label>Email :</label></td>
+	                            <td><input  style="width: 200px" id="email" name="email" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>Address :</label></td>
+	                            <td><input  style="width: 700px" id="address" name="address" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>Mobile :</label></td>
+	                            <td><input  style="width: 100px" id="mobile" name="mobile" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>CMTND :</label></td>
+	                            <td><input  style="width: 110px" id="passport" name="passport" type="text" class="mini" /></td>
+                        	</tr>
+                        	<tr>
+	                            <td><label>Website :</label></td>
+	                            <td><input  style="width: 200px" id="website" name="website" type="text" class="mini" /></td>
+                        	</tr>                               
+	                       </table>
+                         <input type="submit" value="Lưu"/>
+                        </form>
+                         <?php }?>
+                </div>
+      		</div>
+  </div>
+  
+  </body>
+  </html>

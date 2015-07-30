@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi, en">
+<?php $this->load->view('admin/layout/header.phtml')?>
+<meta content="en-us" http-equiv="Content-Language">
+<link href="/jshtmlcss/css/isms.css" rel="stylesheet">
+<style>
+.tab
+{
+	width:100%;
+	margin:0 auto;
+}
+.tab thead tr td
+{
+background-color:#CCCCCC;	
+line-height:25px;
+font-weight:bold;
+font-family:Tahoma,Arial, sans-serif;
+margin:0 auto;
+text-align:center;
+font-size:12px;
+}
+.tab tr td
+{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	padding:0 5px 0 5px;
+	text-align:left;
+	border-radius:3px;
+	webkit-border-radius:3px;
+	moz-border-radius:3px;
+}
+.tab tr td.rows
+{
+	background-color:#F2F2F2;
+	font-family:Arial, Helvetica, sans-serif;
+}
+form
+{	margin:0;
+padding:0;
+}
+</style>
+<body>
+<div class="modal fade" id="minimodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+ 
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+ <a  data-dismiss="modal"><span aria-hidden="true">&times;</span></a>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+       <iframe id="iframe" src="" frameborder="0" height="400" width="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<?php $this->load->view('admin/layout/nav-main.phtml');?>
+<table align="center" cellspacing="0" cellpadding="0" style="width: 90%; text-align: center">
+ <tbody><tr>
+  <td style="text-align: center">&nbsp;</td>
+  <td class="fsms" style="text-align: center; background-color: #FFFFFF;">
+
+   
+   <div class="panel panel-success">
+     <div class="panel-heading">
+       <h2 class="panel-title">Check SIM</h2>
+     </div>
+     <div class="panel-body">
+      <!-- <a id="cauhinh" class="iframe pull-right" href="index.php?act=stv_conf&amp;css=yes&amp;b=1"><strong>
+      <span style="background-color: #FFFF00">Cấu hình</span></strong></a> -->
+     </div>
+   </div>
+   <br>
+   <div id="thongbao">
+   </div>
+   <br>
+   <strong><span style="color: #99CC00">&nbsp;</span><span style="color: #FF0000"></span></strong><br>
+   
+   <form class="form-inline" action="" method="post">
+   <input value="" placeholder="Nhập sim " class="form-control input-lg" style="width: 183px;" name="simcheck">&nbsp;<input type="submit" class="btn btn-warning btn-lg" value="Check" name="submit">&nbsp;
+   <!-- <input type="text" class="form-control input-lg" style="width: 102px;" name="nguoihoi"> -->
+   </form>
+	<br>
+   <br>
+   <div style="">
+        <form action="" method="post">
+
+    <table class="table table-bordered">
+     <thead>
+      <tr>
+       <th class="active">STT</th>
+       <th class="active">Số sim</th>
+       <th class="active">Giá bán</th>
+       <th class="active">Gía nhập</th>
+       <th class="active">Giá đại lý</th>
+		
+       <th width="50%" class="active">Đại lý</th>
+      </tr>
+     </thead>
+           <tbody>
+           <?php if (isset($simcheck) && $simcheck != null){?>
+           <tr>
+      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;"><p style="margin-left: 5px; margin-right: 5px"><?php echo $simcheck[0]->id_sim?></p>
+      </td>
+      
+      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;"><p style="margin-left: 5px; margin-right: 5px">
+      <strong><?php echo $simcheck[0]->sim_split?></strong></p>
+      </td>
+     <?php  $sell = $simcheck[0]->price_sell;
+	                            		if(strlen($sell)>9){
+	                            			$sell = substr($sell, 0,strlen($sell)-9).','.substr($sell,-9,3).','.substr($sell,-6,3).','.substr($sell,-3,3);
+	                            		}else if (strlen($sell)>6 ){
+	                            			$sell = substr($sell, 0,strlen($sell)-6).','.substr($sell,-6,3).','.substr($sell,-3,3);
+	                            		} else if (strlen($sell)>3){
+											$sell = substr($sell, 0,strlen($sell)-3).','.substr($sell,-3,3);
+										}
+										?>
+      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;"><p style="margin-left: 5px; margin-right: 5px">
+      <strong><?php echo $sell?></strong></p>
+      </td>
+      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;">
+      <strong><?php echo $simcheck[0]->price_buy?></strong></td>
+		<?php 
+		$agency = $simcheck[0]->price_agency;
+	                            		if(strlen($agency)>9){
+	                            			$agency = substr($agency, 0,strlen($agency)-9).','.substr($agency,-9,3).','.substr($agency,-6,3).','.substr($agency,-3,3);
+	                            		}else if (strlen($agency)>6 ){
+	                            			$agency = substr($agency, 0,strlen($agency)-6).','.substr($agency,-6,3).','.substr($agency,-3,3);
+	                            		} else if (strlen($lower)>3){
+											$agency = substr($agency, 0,strlen($agency)-3).','.substr($agency,-3,3);
+										}
+										?>
+      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px; color: #FF0000;">
+      <p style="margin-left: 5px; margin-right: 5px"><strong><?php echo $agency?></strong></p>
+      </td>
+      <td style="height: 32px; background-color: #FFD2D2; font-size: 14px;"><?php echo $simcheck[0]->agencyname?></td>
+     </tr>
+          <tr>
+      <td style="background-color: #FFFFFF" colspan="9">
+      <div id="dv106">
+       <br>
+      </div>
+      <div style="text-align: center">
+      <!-- <a class="btn btn-sm btn-info" onclick="hget('dv106','0933889289','0965229999','chuyen');" href="javascript:">Chuyển</a>
+      <a class="btn btn-sm btn-default" href="javascript:" onclick="hget('dv106','0933889289','0965229999','giu');">Giữ sim</a>
+      <a class="btn btn-sm btn-default" href="javascript:" onclick="hget('dv106','0933889289','0965229999','kiemtra');">Kiểm tra</a> -->
+      <a href="<?php echo base_url()?>admin/sim/del/<?php echo $simcheck[0]->id_sim?>" onclick="hdb('dv106','0933889289');" class="btn btn-sm btn-danger">Xóa khỏi web</a></div>
+		</td>
+     </tr>
+     <?php }?>
+         </tbody></table>
+   
+    </form>
+   </div>
+      	<div style="display: none; margin: 0 auto" id="guilai">
+		    <div id="thongbao2"></div>
+		    Nội dung tin nhắn <br>
+		    <textarea style="width: 200px; height: 64px" name="TextArea1" id="txtsms"></textarea><br>
+		    Số người nhận:<input type="text" name="Text1" id="to"><br>
+		    <input type="button" value="Gửi tin nhắn" name="Button1" onclick="guitin2()">
+    	</div>
+ <!-- 
+  <div style="width: 90%; margin: 0px auto; height: 600px; overflow: scroll; display: block;" id="sms">
+
+
+
+   <div style="height: 24px; width: 100%; margin: 0 auto; background: gray; text-align: center;">
+
+ 
+ 
+   <a href="index.php?act=sms2&amp;search=1&amp;css=yes&amp;b=1" class="iframes"><span style="color: #FF0000"><strong>Tìm kiếm tin nhắn</strong></span></a>
+      </div> 
+      
+<table class="tab">
+<thead>
+	<tr>
+		<td style="width: 29px; text-align: center;">STT</td>
+		<td style="width: 55px; text-align: center"><p style="text-align: center">Ngày</p>
+        </td>
+		<td style="width: 50px">Người Gửi</td>
+		<td style="font-family: Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px; width: 50px;">
+		Người Nhận</td>
+		<td>Nội dung tin nhắn</td>
+		<td style="text-align: center; width: 50px">Staus</td>
+		<td style="width: 5px">Xóa</td>
+	</tr>
+	</thead>
+	</table>
+</div>
+ -->
+  <br>
+  <br>
+  <br>
+
+  </td>
+ </tr>
+</tbody></table>
+</body>
